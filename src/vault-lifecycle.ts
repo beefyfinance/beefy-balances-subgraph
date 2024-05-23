@@ -56,7 +56,12 @@ export function handleVaultInitialized(event: ethereum.Event): void {
   // the strategy may or may not be initialized
   // this is a test to know if that is the case
   const strategyContract = BeefyIStrategyV7Contract.bind(strategyAddress)
-  const strategyVault = strategyContract.vault()
+  const strategyVaultRes = strategyContract.try_vault()
+  if (strategyVaultRes.reverted) {
+    log.warning("strategy not yet initialized or is not a proper strategy: {}", [strategyAddress.toHexString()])
+    return
+  }
+  const strategyVault = strategyVaultRes.value
   strategy.isInitialized = !strategyVault.equals(ADDRESS_ZERO)
 
   if (strategy.isInitialized) {
