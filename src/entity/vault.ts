@@ -24,6 +24,7 @@ export function getBeefyVault(vaultAddress: Bytes): BeefyVault {
   if (!vault) {
     vault = new BeefyVault(vaultAddress)
     vault.sharesToken = ADDRESS_ZERO
+    vault.underlyingToken = ADDRESS_ZERO
     vault.strategy = ADDRESS_ZERO
     vault.isInitialized = false
     vault.initializedAtBlockNumber = ZERO_BI

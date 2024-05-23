@@ -100,9 +100,15 @@ export function handleStrategyInitialized(event: ethereum.Event): void {
  */
 function fetchInitialVaultData(vault: BeefyVault): BeefyVault {
   const vaultAddress = Address.fromBytes(vault.id)
+  const vaultContract = BeefyVaultV7Contract.bind(vaultAddress)
+
+  const underlyingTokenAddress = vaultContract.want()
+
   const sharesToken = getTokenAndInitIfNeeded(vaultAddress)
+  const underlyingToken = getTokenAndInitIfNeeded(underlyingTokenAddress)
 
   vault.sharesToken = sharesToken.id
+  vault.underlyingToken = underlyingToken.id
   vault.lifecycle = BEEFY_VAULT_LIFECYCLE_RUNNING
 
   return vault

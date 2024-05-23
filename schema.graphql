@@ -44,6 +44,9 @@ type BeefyVault @entity {
   "Moo token address"
   sharesToken: Token!
 
+  "Underlying token address"
+  underlyingToken: Token!
+
   "The vault's strategy"
   strategy: BeefyStrategy!
 
