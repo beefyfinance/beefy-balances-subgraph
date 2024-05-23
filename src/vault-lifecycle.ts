@@ -11,9 +11,18 @@ import { log } from "matchstick-as"
 
 export function handleVaultCreated(event: VaultCreated): void {
   // start watching the vault events
-  log.debug("Vault created: {}", [event.params.proxy.toHexString()])
-
   const vaultAddress = event.params.proxy
+  log.debug("Vault created: {}", [vaultAddress.toHexString()])
+
+  // test if we are creating a vault or a strategy
+  const vaultContract = BeefyVaultV7Contract.bind(vaultAddress)
+  const strategyRes = vaultContract.try_strategy()
+  // proxy also creates the strategies
+  if (strategyRes.reverted) {
+    log.warning("`strategy()` method does not exist on contract: {}. It's not a vault", [vaultAddress.toHexString()])
+    return
+  }
+
   const vault = getBeefyVault(vaultAddress)
   vault.save()
 
@@ -32,14 +41,7 @@ export function handleVaultInitialized(event: ethereum.Event): void {
   }
 
   const vaultContract = BeefyVaultV7Contract.bind(vaultAddress)
-  const strategyRes = vaultContract.try_strategy()
-  // proxy also creates the strategies
-  if (strategyRes.reverted) {
-    log.error("Vault strategy call reverted: {}", [vaultAddress.toHexString()])
-    store.remove("BeefyVault", vault.id.toHexString())
-    return
-  }
-  const strategyAddress = strategyRes.value
+  const strategyAddress = vaultContract.strategy()
 
   vault.isInitialized = true
   vault.strategy = strategyAddress
