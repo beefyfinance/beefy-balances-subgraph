@@ -1,0 +1,12 @@
+generated
+build
+dist
+node_modules
+
+**/tests/.*/
+.vscode
+
+subgraph.yaml
+src/config.ts
+
+tests/.latest.json

@@ -1,0 +1,39 @@
+{
+  "name": "l2-lxp-liquidity-subgraph",
+  "private": true,
+  "scripts": {
+    "postinstall": "yarn run --silent prepare:linea && yarn run --silent codegen",
+    "codegen": "rm -Rf generated && graph codegen",
+    "build": "graph build",
+    "format": "prettier . --write",
+    "test": "yarn run --silent test:lint && yarn run --silent test:unit",
+    "test:unit": "graph test",
+    "test:lint": "prettier . --check",
+    "infra:start": "docker compose up -d",
+    "infra:stop": "docker compose down",
+    "create-local": "graph create beefyfinance/local --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy beefyfinance/local --node http://127.0.0.1:8020 --ipfs http://localhost:5001",
+    "remove-local": "graph remove beefyfinance/local --node http://127.0.0.1:8020",
+    "prepare:linea": "./bin/prepare.sh linea"
+  },
+  "main": "./bin/index.js",
+  "bin": {
+    "subgraph-cli": "./bin/index.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.69.2",
+    "@graphprotocol/graph-ts": "^0.34.0",
+    "assemblyscript-prettier": "^3.0.1",
+    "husky": ">=7",
+    "lint-staged": ">=10",
+    "matchstick-as": "^0.6.0",
+    "mustache": "^4.2.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {},
+  "lint-staged": {
+    "*.--check": "prettier --write"
+  }
+}

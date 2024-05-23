@@ -1,0 +1,7 @@
+{
+  "network": "linea",
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "vaultFactoryAddress": "0xD19ab62F83380908D65E344567378cF104cE46c2",
+  "vaultFactoryStartBlock": 1123332,
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

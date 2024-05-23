@@ -1,0 +1,76 @@
+specVersion: 1.0.0
+description: Beefy Finance L2 LXP Liquidity Subgraph
+repository: https://github.com/beefyfinance/l2-lxp-liquidity-subgraph
+schema:
+  file: ./schema.graphql
+indexerHints:
+  # we want to be able to issue time-travel queries for historical data
+  prune: never
+dataSources:
+  - kind: ethereum/contract
+    name: BeefyVaultV7Factory
+    network: {{network}}
+    source:
+      address: "{{vaultFactoryAddress}}"
+      abi: BeefyVaultV7Factory
+      startBlock: {{vaultFactoryStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/mapping/factory.ts
+      entities: &entities
+        - BeefyStrategy
+        - BeefyVault
+        - Investor
+        - InvestorPosition
+        - Token
+      abis: &abis
+        - name: BeefyVaultV7Factory
+          file: ./abis/beefy/BeefyVaultV7Factory.json
+        - name: BeefyVaultV7
+          file: ./abis/beefy/BeefyVaultV7.json
+        - name: BeefyIStrategyV7
+          file: ./abis/beefy/BeefyIStrategyV7.json
+        - name: Multicall3
+          file: ./abis/multicall/Multicall3.json
+      eventHandlers:
+        - event: ProxyCreated(address)
+          handler: handleVaultCreated
+
+templates:
+  - name: BeefyVaultV7
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: BeefyVaultV7
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/mapping/vault.ts
+      entities: *entities
+      abis: *abis
+      eventHandlers:
+        - event: {{vaultInitializedEvent}}
+          handler: handleInitialized
+        - event: UpgradeStrat(address)
+          handler: handleUpgradeStrat
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+
+  - name: BeefyIStrategyV7
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: BeefyIStrategyV7
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/mapping/strategy.ts
+      entities: *entities
+      abis: *abis
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
