@@ -75,7 +75,12 @@ export function handleStrategyInitialized(event: ethereum.Event): void {
   log.debug("Strategy initialized: {}", [strategyAddress.toHexString()])
 
   const strategyContract = BeefyIStrategyV7Contract.bind(strategyAddress)
-  const vaultAddress = strategyContract.vault()
+  const vaultAddressRes = strategyContract.try_vault()
+  if (vaultAddressRes.reverted) {
+    log.warning("is not a proper strategy: {}", [strategyAddress.toHexString()])
+    return
+  }
+  const vaultAddress = vaultAddressRes.value
 
   const strategy = getBeefyStrategy(strategyAddress)
   strategy.isInitialized = true
