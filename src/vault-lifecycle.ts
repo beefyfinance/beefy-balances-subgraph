@@ -1,4 +1,4 @@
-import { Address, ethereum } from "@graphprotocol/graph-ts"
+import { Address, ethereum, store } from "@graphprotocol/graph-ts"
 import { BeefyVaultV7 as BeefyVaultV7Contract, UpgradeStrat } from "../generated/templates/BeefyVaultV7/BeefyVaultV7"
 import { BEEFY_VAULT_LIFECYCLE_RUNNING, getBeefyStrategy, getBeefyVault } from "./entity/vault"
 import { BeefyIStrategyV7 as BeefyIStrategyV7Template, BeefyVaultV7 as BeefyVaultV7Template } from "../generated/templates"
@@ -7,14 +7,23 @@ import { BeefyIStrategyV7 as BeefyIStrategyV7Contract } from "../generated/templ
 import { BeefyVault } from "../generated/schema"
 import { getTokenAndInitIfNeeded } from "./entity/token"
 import { ProxyCreated as VaultCreated } from "../generated/BeefyVaultV7Factory/BeefyVaultV7Factory"
+import { log } from "matchstick-as"
 
 export function handleVaultCreated(event: VaultCreated): void {
   // start watching the vault events
-  BeefyVaultV7Template.create(event.address)
+  log.debug("Vault created: {}", [event.params.proxy.toHexString()])
+
+  const vaultAddress = event.params.proxy
+  const vault = getBeefyVault(vaultAddress)
+  vault.save()
+
+  BeefyVaultV7Template.create(vaultAddress)
 }
 
 export function handleVaultInitialized(event: ethereum.Event): void {
   const vaultAddress = event.address
+  log.debug("Vault initialized: {}", [vaultAddress.toHexString()])
+
   let vault = getBeefyVault(vaultAddress)
   // some chains don't have a proper initialized event so
   // we hook into another event that may trigger multiple times
@@ -23,7 +32,14 @@ export function handleVaultInitialized(event: ethereum.Event): void {
   }
 
   const vaultContract = BeefyVaultV7Contract.bind(vaultAddress)
-  const strategyAddress = vaultContract.strategy()
+  const strategyRes = vaultContract.try_strategy()
+  // proxy also creates the strategies
+  if (strategyRes.reverted) {
+    log.error("Vault strategy call reverted: {}", [vaultAddress.toHexString()])
+    store.remove("BeefyVault", vault.id.toHexString())
+    return
+  }
+  const strategyAddress = strategyRes.value
 
   vault.isInitialized = true
   vault.strategy = strategyAddress
@@ -49,6 +65,7 @@ export function handleVaultInitialized(event: ethereum.Event): void {
 
 export function handleStrategyInitialized(event: ethereum.Event): void {
   const strategyAddress = event.address
+  log.debug("Strategy initialized: {}", [strategyAddress.toHexString()])
 
   const strategyContract = BeefyIStrategyV7Contract.bind(strategyAddress)
   const vaultAddress = strategyContract.vault()
