@@ -14,7 +14,8 @@
     "create-local": "graph create beefyfinance/local --node http://127.0.0.1:8020",
     "deploy-local": "graph deploy beefyfinance/local --node http://127.0.0.1:8020 --ipfs http://localhost:5001",
     "remove-local": "graph remove beefyfinance/local --node http://127.0.0.1:8020",
-    "prepare:linea": "./bin/prepare.sh linea"
+    "prepare:linea": "./bin/prepare.sh linea",
+    "prepare:mode": "./bin/prepare.sh mode"
   },
   "main": "./bin/index.js",
   "bin": {
