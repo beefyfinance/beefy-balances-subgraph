@@ -1,7 +1,7 @@
 {
   "network": "mode-mainnet",
   "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
-  "vaultFactoryAddress": "0xD19ab62F83380908D65E344567378cF104cE46c2",
+  "vaultFactoryAddress": "0xBC4a342B0c057501E081484A2d24e576E854F823",
   "vaultFactoryStartBlock": 7558107,
   "vaultInitializedEvent": "Initialized(uint8)"
 }
