@@ -12,7 +12,7 @@ import { Multicall3Params, multicall } from "./utils/multicall"
 export function handleVaultTransfer(event: TransferEvent): void {
   // transfer to self
   if (event.params.from.equals(event.params.to)) {
-    log.warning("handleVaultTransfer: transfer to self {}", [event.transaction.hash.toHexString()])
+    log.warning("handleVaultTransfer: transfer to self, ignoring {}", [event.transaction.hash.toHexString()])
     return
   }
 
