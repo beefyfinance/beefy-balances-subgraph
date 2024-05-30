@@ -6,27 +6,10 @@ This Subgraph sources events from the Beefy contracts in different networks.
 
 ## Goldsky.com
 
-### GraphiQL Explorer
+### Latest endpoints
 
-- Linea: [https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefyfinance/l2-lxp-liquidity-linea/gn](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefyfinance/l2-lxp-liquidity-linea/gn)
-- Mode: [https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefyfinance/l2-lxp-liquidity-mode/gn](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefyfinance/l2-lxp-liquidity-mode/gn)
-
-### Api Endpoints
-
-- Linea: [https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefyfinance/l2-lxp-liquidity-linea/gn](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefyfinance/l2-lxp-liquidity-linea/gn)
-- Mode: [https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefyfinance/l2-lxp-liquidity-mode/gn](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefyfinance/l2-lxp-liquidity-mode/gn)
-
-## 0xgraph.xyz
-
-### GraphiQL Explorer
-
-- Linea: [https://api.0xgraph.xyz/subgraphs/name/beefyfinance/l2-lxp-liquidity-linea/graphql](https://api.0xgraph.xyz/subgraphs/name/beefyfinance/l2-lxp-liquidity-linea/graphql)
-- Mode: [https://api.0xgraph.xyz/subgraphs/name/beefyfinance/l2-lxp-liquidity-mode/graphql](https://api.0xgraph.xyz/subgraphs/name/beefyfinance/l2-lxp-liquidity-mode/graphql)
-
-### Api Endpoints
-
-- Linea: [https://api.0xgraph.xyz/subgraphs/name/beefyfinance/l2-lxp-liquidity-linea](https://api.0xgraph.xyz/subgraphs/name/beefyfinance/l2-lxp-liquidity-linea)
-- Mode: [https://api.0xgraph.xyz/subgraphs/name/beefyfinance/l2-lxp-liquidity-mode](https://api.0xgraph.xyz/subgraphs/name/beefyfinance/l2-lxp-liquidity-mode)
+- [Linea](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-l2-lxp-liquidity-linea/latest/gn)
+- [Mode](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-l2-lxp-liquidity-mode/latest/gn)
 
 # Contributing
 
