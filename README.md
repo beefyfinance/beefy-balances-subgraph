@@ -57,7 +57,6 @@ yarn test:lint # run prettier linter
 ### How to add a new network
 
 1. Add the network configuration [config/<network>.json](config/).
-   - `clockTickBlocks` is the number of blocks between each clock tick, aim for a clock tick every ~5 minutes.
 2. Add dev RPCs in graph-node config [docker/graph-node/config.toml](docker/graph-node/config.toml).
 3. Add a new `prepare:<network>` script in [package.json](package.json).
 4. Add the chain in `.github/workflows/Release.yml` to configure deployments.

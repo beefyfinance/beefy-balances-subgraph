@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         node: ["21.x"]
-        chain: ["linea", "mode"]
+        chain: ["base", "linea", "mode"]
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}

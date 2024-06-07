@@ -1,0 +1,7 @@
+{
+  "network": "base",
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "vaultFactoryAddress": "0xbc4a342b0c057501e081484a2d24e576e854f823",
+  "vaultFactoryStartBlock": 2181945,
+  "vaultInitializedEvent": "Initialized(uint8)"
+}
