@@ -27,8 +27,12 @@ dataSources:
       abis: &abis
         - name: ClmManagerFactory
           file: ./abis/beefy/clm/ClmManagerFactory.json
+        - name: ClmManager
+          file: ./abis/beefy/clm/ClmManager.json
         - name: RewardPoolFactory
           file: ./abis/beefy/clm/RewardPoolFactory.json
+        - name: RewardPool
+          file: ./abis/beefy/clm/RewardPool.json
         - name: ClassicVaultFactory
           file: ./abis/beefy/classic/ClassicVaultFactory.json
         - name: ClassicVault
@@ -103,6 +107,53 @@ dataSources:
           handler: handleClassicBoostCreated
 
 templates:
+  - name: ClmManager
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: ClmManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/clm/mapping/manager.ts
+      entities: *clmEntities
+      abis: *abis
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleClmManagerInitialized
+
+  - name: ClmRewardPool
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: RewardPool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/clm/mapping/reward-pool.ts
+      entities: *clmEntities
+      abis: *abis
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleRewardPoolInitialized
+          
+  - name: ClassicVault
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: ClassicVault
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/classic/mapping/vault.ts
+      entities: *classicEntities
+      abis: *abis
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleClassicVaultInitialized
 
   - name: BeefyERC20Product
     kind: ethereum/contract

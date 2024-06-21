@@ -1,0 +1,1 @@
+export { handleClmManagerInitialized } from "../lifecycle"
