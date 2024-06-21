@@ -1,6 +1,7 @@
 {
   "network": "mode-mainnet",
   "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
 
   "clmManagerFactoryAddress": "0x0000000000000000000000000000000000000000",
   "clmManagerFactoryStartBlock": 7558107,

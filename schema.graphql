@@ -1,15 +1,4 @@
 """
-A investor is an address that interacts with our protocol.
-"""
-type Investor @entity {
-  "User address"
-  id: Bytes!
-
-  "The investor's balances in all the tracked vaults"
-  positions: [InvestorPosition!]! @derivedFrom(field: "investor")
-}
-
-"""
 A token is a representation of a fungible asset on the blockchain
 as specified by the ERC20 standard.
 """
@@ -25,81 +14,21 @@ type Token @entity(immutable: true) {
   decimals: BigInt!
 }
 
-enum VaultLifecycle {
-  "The vault is in the process of being initialized"
-  INITIALIZING
-  "The vault is able to accept deposits and earn yield"
-  RUNNING
-  "A vault can be paused for a variety of reasons, this is always to protect investors funds"
-  PAUSED
+# account details
+type Account @entity {
+  #account address
+  id: Bytes!
+  #balances
+  balances: [TokenBalance!]! @derivedFrom(field: "account")
 }
 
-"""
-A Beefy vault
-"""
-type BeefyVault @entity {
-  "Vault address"
+# token balance details
+type TokenBalance @entity {
   id: Bytes!
-
-  "Moo token address"
-  sharesToken: Token!
-
-  "Underlying token address"
-  underlyingToken: Token!
-
-  "The vault's strategy"
-  strategy: BeefyStrategy!
-
-  "Technical field to remember if the vault was already initialized"
-  isInitialized: Boolean!
-
-  "The vault first initialized block number"
-  initializedAtBlockNumber: BigInt!
-
-  "The vault first initialized timestamp"
-  initializedAtTimestamp: BigInt!
-
-  "The current lifecycle status of the vault"
-  lifecycle: VaultLifecycle!
-
-  "The vault's total shares supply as represented in the contract"
-  rawSharesTokenTotalSupply: BigInt!
-
-  "The vault's total shares supply"
-  sharesTokenTotalSupply: BigDecimal!
-
-  "positions in the vault"
-  positions: [InvestorPosition!]! @derivedFrom(field: "vault")
-}
-
-"""
-A strategy is a contract that manages the assets of a vault.
-This is mostly used to start tracking the events and link them to the vault on new event
-"""
-type BeefyStrategy @entity {
-  "The strategy address"
-  id: Bytes!
-
-  "The vault the strategy is managing"
-  vault: BeefyVault!
-
-  "Technical field to remember if the strategy was already initialized"
-  isInitialized: Boolean!
-}
-
-type InvestorPosition @entity {
-  "vault address + investor address"
-  id: Bytes!
-
-  "Investor address"
-  investor: Investor!
-
-  "Vault address"
-  vault: BeefyVault!
-
-  "Amount of shares, with maximum precision. Represented with `vault.shareToken.decimals` decimals"
-  rawSharesBalance: BigInt!
-
-  "Amount of shares"
-  sharesBalance: BigDecimal!
+  #token
+  token: Token!
+  #account
+  account: Account!
+  #amount
+  amount: BigInt!
 }

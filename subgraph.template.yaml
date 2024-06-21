@@ -21,34 +21,22 @@ dataSources:
       language: wasm/assemblyscript
       file: ./src/clm/mapping/manager-factory.ts
       entities: &clmEntities
-        - CLM
-        - ClmPosition
-        - ClmManager
-        - ClmRewardPool
-        - Investor
         - Token
-        - Transaction
+        - Account
+        - TokenBalance
       abis: &abis
         - name: ClmManagerFactory
           file: ./abis/beefy/clm/ClmManagerFactory.json
-        - name: ClmManager
-          file: ./abis/beefy/clm/ClmManager.json
         - name: RewardPoolFactory
           file: ./abis/beefy/clm/RewardPoolFactory.json
-        - name: RewardPool
-          file: ./abis/beefy/clm/RewardPool.json
-
         - name: ClassicVaultFactory
           file: ./abis/beefy/classic/ClassicVaultFactory.json
         - name: ClassicVault
           file: ./abis/beefy/classic/ClassicVault.json
         - name: ClassicBoostFactory
           file: ./abis/beefy/classic/ClassicBoostFactory.json
-        - name: ClassicBoost
-          file: ./abis/beefy/classic/ClassicBoost.json
-
-        - name: Multicall3
-          file: ./abis/multicall/Multicall3.json
+        - name: IERC20
+          file: ./abis/IERC20/IERC20.json
       eventHandlers:
         - event: ProxyCreated(address)
           handler: handleClmManagerCreated
@@ -107,59 +95,28 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
-      file: ./src/classic/mapping/boot-factory.ts
+      file: ./src/classic/mapping/boost-factory.ts
       entities: *clmEntities
       abis: *abis
       eventHandlers:
-        - event: BoostDeployed(address)
+        - event: BoostDeployed(indexed address)
           handler: handleClassicBoostCreated
 
 templates:
 
-  - name: ClmManager
+  - name: BeefyERC20Product
     kind: ethereum/contract
     network: {{network}}
     source:
-      abi: ClmManager
+      abi: IERC20
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
-      file: ./src/clm/mapping/manager.ts
+      file: ./src/common/mapping/erc20.ts
       entities: *clmEntities
       abis: *abis
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleClmManagerTransfer
+          handler: handleProductTransfer
   
-  - name: ClmRewardPool
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      abi: RewardPool
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7 # 0xgraph's version
-      language: wasm/assemblyscript
-      file: ./src/clm/mapping/reward-pool.ts
-      entities: *clmEntities
-      abis: *abis
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleRewardPoolTransfer
-
-  - name: ClassicVault
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      abi: ClassicVault
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7 # 0xgraph's version
-      language: wasm/assemblyscript
-      file: ./src/classic/mapping/vault.ts
-      entities: *classicEntities
-      abis: *abis
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleClassicVaultTransfer

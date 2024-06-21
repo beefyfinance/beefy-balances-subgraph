@@ -43,10 +43,10 @@ function publish {
     PROVIDER=$2
     case $PROVIDER in
         "0xgraph")
-            publish_0xgraph beefyfinance/l2-lxp-liquidity-$CHAIN-dev
+            publish_0xgraph beefyfinance/balances-$CHAIN-dev
             ;;
         "goldsky")
-            publish_goldsky beefy-l2-lxp-liquidity-$CHAIN-dev
+            publish_goldsky beefy-balances-$CHAIN-dev
             ;;
     esac
 }

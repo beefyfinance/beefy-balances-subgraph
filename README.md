@@ -1,4 +1,4 @@
-# Beefy l2-lxp-liquidity-subgraph Subgraph
+# Beefy beefy-balances Subgraph
 
 This Subgraph sources events from the Beefy contracts in different networks.
 
@@ -8,8 +8,8 @@ This Subgraph sources events from the Beefy contracts in different networks.
 
 ### Latest endpoints
 
-- [Linea](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-l2-lxp-liquidity-linea/latest/gn)
-- [Mode](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-l2-lxp-liquidity-mode/latest/gn)
+- [Linea](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-linea/latest/gn)
+- [Mode](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-mode/latest/gn)
 
 # Contributing
 

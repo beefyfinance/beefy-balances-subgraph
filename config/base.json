@@ -1,6 +1,7 @@
 {
   "network": "base",
   "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
 
   "clmManagerFactoryAddress": "0x7bC78990AC1ef0754CFdE935B2D84E9acF13ed29",
   "clmManagerFactoryStartBlock": 15530271,

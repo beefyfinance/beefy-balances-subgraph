@@ -1,5 +1,5 @@
 {
-  "name": "l2-lxp-liquidity-subgraph",
+  "name": "beefy-balances-subgraph",
   "private": true,
   "scripts": {
     "postinstall": "yarn run --silent prepare:linea && yarn run --silent codegen",

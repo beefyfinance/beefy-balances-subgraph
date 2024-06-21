@@ -36,6 +36,8 @@ function publish_goldsky {
     DEPLOY_KEY=$3
     echo "publishing $SUBGRAPH to goldsky"
     goldsky subgraph deploy $SUBGRAPH/$VERSION --path . --token $DEPLOY_KEY
+    sleep 5 # wait for the subgraph to propagate
+    goldsky subgraph tag create $SUBGRAPH/$VERSION --token $DEPLOY_KEY --tag next
 }
 
 function publish {
@@ -46,10 +48,10 @@ function publish {
     SUBGRAPH=
     case $PROVIDER in
         "0xgraph")
-            publish_0xgraph beefyfinance/l2-lxp-liquidity-$CHAIN $VERSION $DEPLOY_KEY
+            publish_0xgraph beefyfinance/balances-$CHAIN $VERSION $DEPLOY_KEY
             ;;
         "goldsky")
-            publish_goldsky beefy-l2-lxp-liquidity-$CHAIN $VERSION $DEPLOY_KEY
+            publish_goldsky beefy-balances-$CHAIN $VERSION $DEPLOY_KEY
             ;;
     esac
 }

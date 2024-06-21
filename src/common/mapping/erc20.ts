@@ -1,0 +1,1 @@
+export { handleProductTransfer } from "../interaction"
