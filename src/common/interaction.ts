@@ -1,11 +1,17 @@
-import { BigInt, Bytes } from "@graphprotocol/graph-ts"
+import { BigInt, Bytes, log } from "@graphprotocol/graph-ts"
 import { Transfer as TransferEvent } from "../../generated/templates/BeefyERC20Product/IERC20"
 import { BURN_ADDRESS, SHARE_TOKEN_MINT_ADDRESS } from "../config"
 import { getAccount } from "./entity/account"
 import { getTokenBalance } from "./entity/balance"
 import { getToken } from "./entity/token"
+import { shouldIgnoreContract } from "./entity/ignored"
 
 export function handleProductTransfer(event: TransferEvent): void {
+  if (shouldIgnoreContract(event.params.from) || shouldIgnoreContract(event.params.to)) {
+    log.debug("Ignoring transfer from/to ignored contract: {}", [event.transaction.hash.toHexString()])
+    return
+  }
+
   if (event.params.from.notEqual(SHARE_TOKEN_MINT_ADDRESS) && event.params.from.notEqual(BURN_ADDRESS)) {
     updateAccountBalance(event.address, event.params.from, event.params.value.neg())
   }

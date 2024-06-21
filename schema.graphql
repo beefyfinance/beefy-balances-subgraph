@@ -14,6 +14,15 @@ type Token @entity(immutable: true) {
   decimals: BigInt!
 }
 
+"""
+A contract where transfers from/to are ignored
+This is used to account for contracts that are not ERC20 compliant
+but allow staking one token like beefy boosts
+"""
+type IgnoredContract @entity {
+  id: Bytes!
+}
+
 # account details
 type Account @entity {
   #account address
