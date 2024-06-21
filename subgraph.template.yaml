@@ -7,70 +7,159 @@ indexerHints:
   # we want to be able to issue time-travel queries for historical data
   prune: never
 dataSources:
+
   - kind: ethereum/contract
-    name: BeefyVaultV7Factory
+    name: ClmManagerFactory
     network: {{network}}
     source:
-      address: "{{vaultFactoryAddress}}"
-      abi: BeefyVaultV7Factory
-      startBlock: {{vaultFactoryStartBlock}}
+      address: "{{clmManagerFactoryAddress}}"
+      abi: ClmManagerFactory
+      startBlock: {{clmManagerFactoryStartBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
-      file: ./src/mapping/factory.ts
-      entities: &entities
-        - BeefyStrategy
-        - BeefyVault
+      file: ./src/clm/mapping/manager-factory.ts
+      entities: &clmEntities
+        - CLM
+        - ClmPosition
+        - ClmManager
+        - ClmRewardPool
         - Investor
-        - InvestorPosition
         - Token
+        - Transaction
       abis: &abis
-        - name: BeefyVaultV7Factory
-          file: ./abis/beefy/BeefyVaultV7Factory.json
-        - name: BeefyVaultV7
-          file: ./abis/beefy/BeefyVaultV7.json
-        - name: BeefyIStrategyV7
-          file: ./abis/beefy/BeefyIStrategyV7.json
+        - name: ClmManagerFactory
+          file: ./abis/beefy/clm/ClmManagerFactory.json
+        - name: ClmManager
+          file: ./abis/beefy/clm/ClmManager.json
+        - name: RewardPoolFactory
+          file: ./abis/beefy/clm/RewardPoolFactory.json
+        - name: RewardPool
+          file: ./abis/beefy/clm/RewardPool.json
+
+        - name: ClassicVaultFactory
+          file: ./abis/beefy/classic/ClassicVaultFactory.json
+        - name: ClassicVault
+          file: ./abis/beefy/classic/ClassicVault.json
+        - name: ClassicBoostFactory
+          file: ./abis/beefy/classic/ClassicBoostFactory.json
+        - name: ClassicBoost
+          file: ./abis/beefy/classic/ClassicBoost.json
+
         - name: Multicall3
           file: ./abis/multicall/Multicall3.json
       eventHandlers:
         - event: ProxyCreated(address)
-          handler: handleVaultCreated
+          handler: handleClmManagerCreated
+          
+  - kind: ethereum/contract
+    name: RewardPoolFactory
+    network: {{network}}
+    source:
+      address: "{{rewardPoolFactoryAddress}}"
+      abi: RewardPoolFactory
+      startBlock: {{rewardPoolFactoryStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/clm/mapping/reward-pool-factory.ts
+      entities: *clmEntities
+      abis: *abis
+      eventHandlers:
+        - event: ProxyCreated(string,address)
+          handler: handleRewardPoolCreated
+
+  - kind: ethereum/contract
+    name: ClassicVaultFactory
+    network: {{network}}
+    source:
+      address: "{{beefyClassicVaultFactoryAddress}}"
+      abi: ClassicVaultFactory
+      startBlock: {{beefyClassicVaultFactoryStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/classic/mapping/vault-and-strategy-factory.ts
+      entities: &classicEntities
+        - Classic
+        - ClassicBoost
+        - ClassicPosition
+        - ClassicVault
+        - Investor
+        - Token
+        - Transaction
+      abis: *abis
+      eventHandlers:
+        - event: ProxyCreated(address)
+          handler: handleClassicVaultOrStrategyCreated
+          
+  - kind: ethereum/contract
+    name: ClassicBoostFactory
+    network: {{network}}
+    source:
+      address: "{{beefyClassicBoostFactoryAddress}}"
+      abi: ClassicBoostFactory
+      startBlock: {{beefyClassicBoostFactoryStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/classic/mapping/boot-factory.ts
+      entities: *clmEntities
+      abis: *abis
+      eventHandlers:
+        - event: BoostDeployed(address)
+          handler: handleClassicBoostCreated
 
 templates:
-  - name: BeefyVaultV7
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      abi: BeefyVaultV7
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7 # 0xgraph's version
-      language: wasm/assemblyscript
-      file: ./src/mapping/vault.ts
-      entities: *entities
-      abis: *abis
-      eventHandlers:
-        - event: {{vaultInitializedEvent}}
-          handler: handleInitialized
-        - event: UpgradeStrat(address)
-          handler: handleUpgradeStrat
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
 
-  - name: BeefyIStrategyV7
+  - name: ClmManager
     kind: ethereum/contract
     network: {{network}}
     source:
-      abi: BeefyIStrategyV7
+      abi: ClmManager
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
-      file: ./src/mapping/strategy.ts
-      entities: *entities
+      file: ./src/clm/mapping/manager.ts
+      entities: *clmEntities
       abis: *abis
       eventHandlers:
-        - event: Initialized(uint8)
-          handler: handleInitialized
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleClmManagerTransfer
+  
+  - name: ClmRewardPool
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: RewardPool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/clm/mapping/reward-pool.ts
+      entities: *clmEntities
+      abis: *abis
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleRewardPoolTransfer
+
+  - name: ClassicVault
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: ClassicVault
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/classic/mapping/vault.ts
+      entities: *classicEntities
+      abis: *abis
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleClassicVaultTransfer

@@ -1,7 +1,17 @@
 {
   "network": "mode-mainnet",
   "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
-  "vaultFactoryAddress": "0xBC4a342B0c057501E081484A2d24e576E854F823",
-  "vaultFactoryStartBlock": 7558107,
+
+  "clmManagerFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "clmManagerFactoryStartBlock": 7558107,
+  "clmStrategyFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "clmStrategyFactoryStartBlock": 7558107,
+  "rewardPoolFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "rewardPoolFactoryStartBlock": 7558107,
+  "beefyClassicVaultFactoryAddress": "0xBC4a342B0c057501E081484A2d24e576E854F823",
+  "beefyClassicVaultFactoryStartBlock": 7558107,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 7558107,
+
   "vaultInitializedEvent": "Initialized(uint8)"
 }
