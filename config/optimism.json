@@ -1,0 +1,18 @@
+{
+  "network": "optimism",
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0x55D0efec44ee905fC3e12CcB9f25bBd5ccE0ab9C",
+  "clmManagerFactoryStartBlock": 121125456,
+  "clmStrategyFactoryAddress": "0x3B2D461464b9052Dfe52a17f10aA9e3b17332F2d",
+  "clmStrategyFactoryStartBlock": 121125469,
+  "rewardPoolFactoryAddress": "0x4399457CB360fC37242d2BE326579Caf3981c769",
+  "rewardPoolFactoryStartBlock": 121125461,
+  "beefyClassicVaultFactoryAddress": "0xA6D3769faC465FC0415e7E9F16dcdC96B83C240B",
+  "beefyClassicVaultFactoryStartBlock": 38082415,
+  "beefyClassicBoostFactoryAddress": "0xf0a7626eccbee00af144bb1f77cd187af85bbf41",
+  "beefyClassicBoostFactoryStartBlock": 106819558,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

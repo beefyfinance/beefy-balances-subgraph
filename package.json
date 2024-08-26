@@ -14,9 +14,13 @@
     "create-local": "graph create beefyfinance/local --node http://127.0.0.1:8020",
     "deploy-local": "graph deploy beefyfinance/local --node http://127.0.0.1:8020 --ipfs http://localhost:5001",
     "remove-local": "graph remove beefyfinance/local --node http://127.0.0.1:8020",
+    "prepare:arbitrum": "./bin/prepare.sh arbitrum",
     "prepare:base": "./bin/prepare.sh base",
+    "prepare:bsc": "./bin/prepare.sh bsc",
+    "prepare:ethereum": "./bin/prepare.sh ethereum",
     "prepare:linea": "./bin/prepare.sh linea",
-    "prepare:mode": "./bin/prepare.sh mode"
+    "prepare:mode": "./bin/prepare.sh mode",
+    "prepare:optimism": "./bin/prepare.sh optimism"
   },
   "main": "./bin/index.js",
   "bin": {
@@ -37,5 +41,6 @@
   "dependencies": {},
   "lint-staged": {
     "*.--check": "prettier --write"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

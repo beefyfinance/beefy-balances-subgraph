@@ -6,8 +6,11 @@ import { ClassicVault as ClassicVaultContract } from "../../generated/ClassicVau
 import { BeefyERC20Product as BeefyERC20ProductTemplate, ClassicVault as ClassicVaultTemplate } from "../../generated/templates"
 import { fetchAndSaveTokenData } from "../common/utils/token"
 import { getIgnoredContract } from "../common/entity/ignored"
+import { RANDOM } from "../random"
 
 export function handleClassicVaultOrStrategyCreated(event: VaultOrStrategyCreated): void {
+  log.debug("Classic Vault or Strategy created: {}. Rng: {}", [event.params.proxy.toHexString(), RANDOM])
+
   const address = event.params.proxy
 
   // test if we are creating a vault or a strategy

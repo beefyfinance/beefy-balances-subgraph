@@ -8,51 +8,29 @@ valid_providers=("goldsky" "0xgraph")
 
 function exit_help {
     echo "Usage: $0 <version> <chain> <provider> <deploy_key>"
-    echo "   Example: $0 0.1.4 polygon goldsky ABCDEA123"
+    echo "   Example: $0 0.1.4 goldsky ABCDEA123"
     echo "   chains: " ${valid_chains[@]}
     echo "   providers: " ${valid_providers[@]}
     exit 1
 }
 
-function prepare {
-    CHAIN=$1
-    echo "preparing $CHAIN"
-    yarn prepare:$CHAIN
-    yarn codegen
-    yarn build
-}
 
-function publish_0xgraph {
+function delete_goldsky {
     SUBGRAPH=$1
     VERSION=$2
     DEPLOY_KEY=$3
-    echo "publishing $SUBGRAPH to 0xgraph"
-    yarn run graph deploy $SUBGRAPH --node https://api.0xgraph.xyz/deploy --ipfs https://api.0xgraph.xyz/ipfs --version-label="v$VERSION" --deploy-key=$DEPLOY_KEY
+    echo "deleting $SUBGRAPH to goldsky"
+    goldsky subgraph delete $SUBGRAPH/$VERSION --token $DEPLOY_KEY
 }
 
-function publish_goldsky {
-    SUBGRAPH=$1
-    VERSION=$2
-    DEPLOY_KEY=$3
-    echo "publishing $SUBGRAPH to goldsky"
-    goldsky subgraph deploy $SUBGRAPH/$VERSION --path . --token $DEPLOY_KEY
-    
-    sleep 5 # wait for the subgraph to propagate
-    goldsky subgraph tag create $SUBGRAPH/$VERSION --token $DEPLOY_KEY --tag next
-}
-
-function publish {
+function delete_subgraph {
     VERSION=$1
     CHAIN=$2
     PROVIDER=$3
     DEPLOY_KEY=$4
-    SUBGRAPH=
     case $PROVIDER in
-        "0xgraph")
-            publish_0xgraph beefyfinance/balances-$CHAIN $VERSION $DEPLOY_KEY
-            ;;
         "goldsky")
-            publish_goldsky beefy-balances-$CHAIN $VERSION $DEPLOY_KEY
+            delete_goldsky beefy-balances-$CHAIN $VERSION $DEPLOY_KEY
             ;;
     esac
 }
@@ -74,10 +52,6 @@ if [ -z "$chain" ]; then
     echo "chain is required"
     exit_help
 fi
-if [[ ! " ${valid_chains[@]} " =~ " ${chain} " ]]; then
-    echo "invalid chain"
-    exit_help
-fi
 
 provider=$3
 if [ -z "$provider" ]; then
@@ -95,5 +69,4 @@ if [ -z "$deploy_key" ]; then
     exit_help
 fi
 
-prepare $chain
-publish $version $chain $provider $deploy_key
+delete_subgraph $version $chain $provider $deploy_key
