@@ -1,0 +1,18 @@
+{
+  "network": "mantle",
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0xfBf758dbe280bD988ba0E13713b40ff8cea8565E",
+  "clmManagerFactoryStartBlock": 66470980,
+  "clmStrategyFactoryAddress": "0xEDFBeC807304951785b581dB401fDf76b4bAd1b0",
+  "clmStrategyFactoryStartBlock": 66470995,
+  "rewardPoolFactoryAddress": "0x0d4d90b8D7E1AA1AAE5B80EEdCD5b431Eb3c739D",
+  "rewardPoolFactoryStartBlock": 66470986,
+  "beefyClassicVaultFactoryAddress": "0xfc69704cC3cAac545cC7577009Ea4AA04F1a61Eb",
+  "beefyClassicVaultFactoryStartBlock": 66470986,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 66470986,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

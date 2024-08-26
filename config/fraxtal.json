@@ -1,0 +1,18 @@
+{
+  "network": "frax-mainnet",
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "clmManagerFactoryStartBlock": 2366784,
+  "clmStrategyFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "clmStrategyFactoryStartBlock": 2366784,
+  "rewardPoolFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "rewardPoolFactoryStartBlock": 2366784,
+  "beefyClassicVaultFactoryAddress": "0x91BB303E972995EbE5f593BCddBb6F5Ef49Dbcbd",
+  "beefyClassicVaultFactoryStartBlock": 2366784,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 2366784,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}
