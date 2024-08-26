@@ -152,7 +152,7 @@ templates:
       entities: *classicEntities
       abis: *abis
       eventHandlers:
-        - event: Initialized(uint8)
+        - event: {{vaultInitializedEvent}}
           handler: handleClassicVaultInitialized
 
   - name: BeefyERC20Product

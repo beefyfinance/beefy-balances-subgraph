@@ -9,5 +9,6 @@ node_modules
 subgraph.yaml
 src/config.ts
 src/random.ts
+random.json
 
 tests/.latest.json
