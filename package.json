@@ -18,7 +18,9 @@
     "prepare:base": "./bin/prepare.sh base",
     "prepare:bsc": "./bin/prepare.sh bsc",
     "prepare:ethereum": "./bin/prepare.sh ethereum",
+    "prepare:fraxtal": "./bin/prepare.sh fraxtal",
     "prepare:linea": "./bin/prepare.sh linea",
+    "prepare:mantle": "./bin/prepare.sh mantle",
     "prepare:mode": "./bin/prepare.sh mode",
     "prepare:optimism": "./bin/prepare.sh optimism"
   },
