@@ -12,6 +12,25 @@ type Token @entity(immutable: true) {
   name: String
   "The number of decimals the token uses"
   decimals: BigInt!
+  "Holder list of the token"
+  balances: [TokenBalance!]! @derivedFrom(field: "token")
+}
+
+"""
+Token statistics. This entity is updated by the subgraph.
+"""
+type TokenStatistic @entity {
+  "Token address"
+  id: Bytes!
+
+  "Token"
+  token: Token!
+
+  "The total supply of the token"
+  totalSupply: BigInt!
+
+  "How many holders this token has. With balance > 0"
+  holderCount: BigInt!
 }
 
 """
@@ -19,25 +38,31 @@ A contract where transfers from/to are ignored
 This is used to account for contracts that are not ERC20 compliant
 but allow staking one token like beefy boosts
 """
-type IgnoredContract @entity {
+type IgnoredContract @entity(immutable: true) {
   id: Bytes!
 }
 
-# account details
-type Account @entity {
-  #account address
+"""
+An holder account. Can be a user or a contract
+"""
+type Account @entity(immutable: true) {
+  "Account address"
   id: Bytes!
-  #balances
+  "Account balance"
   balances: [TokenBalance!]! @derivedFrom(field: "account")
 }
 
-# token balance details
+"""
+A token balance represents the amount of a specific token that an account holds
+"""
 type TokenBalance @entity {
+  "Account address + Token address"
   id: Bytes!
-  #token
+
+  "The token that this balance is for"
   token: Token!
-  #account
+  "Account that holds the token"
   account: Account!
-  #amount
+  "The amount of the token this account holds"
   amount: BigInt!
 }

@@ -5,11 +5,10 @@ export function shouldIgnoreContract(contractAddress: Bytes): boolean {
   return IgnoredContract.load(contractAddress) !== null
 }
 
-export function getIgnoredContract(contractAddress: Bytes): IgnoredContract {
+export function addIgnoredContract(contractAddress: Bytes): void {
   let ignoredcontract = IgnoredContract.load(contractAddress)
   if (!ignoredcontract) {
     ignoredcontract = new IgnoredContract(contractAddress)
+    ignoredcontract.save()
   }
-
-  return ignoredcontract
 }

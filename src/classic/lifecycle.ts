@@ -5,7 +5,7 @@ import { BoostDeployed as BoostCreated } from "../../generated/ClassicBoostFacto
 import { ClassicVault as ClassicVaultContract } from "../../generated/ClassicVaultFactory/ClassicVault"
 import { BeefyERC20Product as BeefyERC20ProductTemplate, ClassicVault as ClassicVaultTemplate } from "../../generated/templates"
 import { fetchAndSaveTokenData } from "../common/utils/token"
-import { getIgnoredContract } from "../common/entity/ignored"
+import { addIgnoredContract } from "../common/entity/ignored"
 import { RANDOM } from "../random"
 
 export function handleClassicVaultOrStrategyCreated(event: VaultOrStrategyCreated): void {
@@ -29,8 +29,7 @@ export function handleClassicVaultOrStrategyCreated(event: VaultOrStrategyCreate
 
 export function handleClassicBoostCreated(event: BoostCreated): void {
   const address = event.params.boost
-  const ignored = getIgnoredContract(address)
-  ignored.save()
+  addIgnoredContract(address)
 }
 
 export function handleClassicVaultInitialized(event: VaultInitialized): void {
