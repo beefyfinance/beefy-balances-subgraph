@@ -1,0 +1,18 @@
+{
+  "network": "manta-pacific-mainnet",
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0x91BB303E972995EbE5f593BCddBb6F5Ef49Dbcbd",
+  "clmManagerFactoryStartBlock": 2501033,
+  "clmStrategyFactoryAddress": "0x448a3539a591dE3Fb9D5AAE407471D21d40cD315",
+  "clmStrategyFactoryStartBlock": 2501044,
+  "rewardPoolFactoryAddress": "0x9818dF1Bdce8D0E79B982e2C3a93ac821b3c17e0",
+  "rewardPoolFactoryStartBlock": 2501035,
+  "beefyClassicVaultFactoryAddress": "0xfc69704cC3cAac545cC7577009Ea4AA04F1a61Eb",
+  "beefyClassicVaultFactoryStartBlock": 2501033,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 2501033,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

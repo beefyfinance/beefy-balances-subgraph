@@ -1,0 +1,18 @@
+{
+  "network": "matic",
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0x56244006aCBE39275975eA72775E7c9920C9Da57",
+  "clmManagerFactoryStartBlock": 58270050,
+  "clmStrategyFactoryAddress": "0xf4CB9Cb96a3F00d66f065ECABc8Ace0742512d22",
+  "clmStrategyFactoryStartBlock": 58270064,
+  "rewardPoolFactoryAddress": "0x8dB409dd28B3E4189dD4CF82bAbDD7b593a679EA",
+  "rewardPoolFactoryStartBlock": 58270058,
+  "beefyClassicVaultFactoryAddress": "0x5a7Bdd60d6004aaED4C06cA16434f4b657d76C3D",
+  "beefyClassicVaultFactoryStartBlock": 58270050,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 58270050,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

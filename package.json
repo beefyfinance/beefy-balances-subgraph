@@ -20,9 +20,14 @@
     "prepare:ethereum": "./bin/prepare.sh ethereum",
     "prepare:fraxtal": "./bin/prepare.sh fraxtal",
     "prepare:linea": "./bin/prepare.sh linea",
+    "prepare:manta": "./bin/prepare.sh manta",
     "prepare:mantle": "./bin/prepare.sh mantle",
     "prepare:mode": "./bin/prepare.sh mode",
-    "prepare:optimism": "./bin/prepare.sh optimism"
+    "prepare:moonbeam": "./bin/prepare.sh moonbeam",
+    "prepare:optimism": "./bin/prepare.sh optimism",
+    "prepare:polygon": "./bin/prepare.sh polygon",
+    "prepare:sei": "./bin/prepare.sh sei",
+    "prepare:zksync": "./bin/prepare.sh zksync"
   },
   "main": "./bin/index.js",
   "bin": {
