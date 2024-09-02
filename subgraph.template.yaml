@@ -196,6 +196,8 @@ dataSources:
           file: ./abis/beefy/ContractDeployer.json
         - name: IERC20
           file: ./abis/IERC20/IERC20.json
+        - name: Initializable
+          file: ./abis/beefy/Initializable.json
       eventHandlers:
         - event: ContractDeployed(indexed bytes32,address)
           handler: handleContractDeployedWithDeployer
@@ -267,6 +269,24 @@ templates:
         - event: {{vaultInitializedEvent}}
           handler: handleClassicVaultInitialized
   {{/beefyClassicVaultFactoryAddress}}
+
+  {{#beefyContractDeployerAddress}}
+  - name: ContractDeployerInitializable
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: Initializable
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/common/mapping/contract-deployer-initializable.ts
+      entities: *contractDeployerEntities
+      abis: *contractDeployerAbis
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleContractDeployedInitializableInitialized
+  {{/beefyContractDeployerAddress}}
 
   - name: BeefyERC20Product
     kind: ethereum/contract

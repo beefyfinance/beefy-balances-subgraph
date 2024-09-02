@@ -44,8 +44,6 @@ export function handleProductTransfer(event: TransferEvent): void {
 function updateAccountBalance(tokenAddress: Bytes, accountAddress: Bytes, amountDiff: BigInt): BalanceDiff {
   const account = createAccount(accountAddress)
   const token = getToken(tokenAddress)
-  token.save()
-
   const balance = getTokenBalance(token, account)
   const before = balance.amount
   const after = balance.amount.plus(amountDiff)

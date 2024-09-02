@@ -10,12 +10,11 @@ export function fetchAndSaveTokenData(tokenAddress: Bytes): Token {
 
   // if any of these calls revert, we will just use the default values to avoid a subgraph crash
   const tokenDecimalsRes = tokenContract.try_decimals()
-  const tokenDecimals = tokenDecimalsRes.reverted ? 18 : tokenDecimalsRes.value
-
   const tokenNameRes = tokenContract.try_name()
-  const tokenName = tokenNameRes.reverted ? "Unknown" : tokenNameRes.value
-
   const tokenSymbolRes = tokenContract.try_symbol()
+
+  const tokenDecimals = tokenDecimalsRes.reverted ? 18 : tokenDecimalsRes.value
+  const tokenName = tokenNameRes.reverted ? "Unknown" : tokenNameRes.value
   const tokenSymbol = tokenSymbolRes.reverted ? "UNKNOWN" : tokenSymbolRes.value
 
   const token = getToken(tokenAddress)
