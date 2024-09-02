@@ -1,0 +1,14 @@
+{
+  "network": "fantom",
+  "indexerHintPrune": 10000000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "beefyClassicVaultFactoryAddress": "0x740ce0674af6eec113a435faa53b297536a3e89b",
+  "beefyClassicVaultFactoryStartBlock": 54563817,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 66770113,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

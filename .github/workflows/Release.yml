@@ -12,7 +12,7 @@ jobs:
       matrix:
         node: ["21.x"]
         chain:
-          ["arbitrum", "base", "bsc", "ethereum", "fraxtal", "linea", "manta", "mantle", "mode", "moonbeam", "optimism", "polygon", "sei", "zksync"]
+          ["avalanche", "arbitrum", "base", "bsc", "ethereum", "fantom", "fraxtal", "linea", "manta", "mantle", "mode", "moonbeam", "optimism", "polygon", "sei", "zksync"]
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}

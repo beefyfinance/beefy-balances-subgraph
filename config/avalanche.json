@@ -1,0 +1,14 @@
+{
+  "network": "avalanche",
+  "indexerHintPrune": 1000000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "beefyClassicVaultFactoryAddress": "0xee78529E158E82AC54c89608A9664F5597050526",
+  "beefyClassicVaultFactoryStartBlock": 23297126,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 33664658,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}
