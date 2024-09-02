@@ -33,10 +33,10 @@ export function handleContractDeployedWithDeployer(event: ContractDeployedEvent)
   const tokenName = tokenNameRes.value
   const tokenSymbol = tokenSymbolRes.value
   if (tokenDecimals == 0 || tokenName == "" || tokenSymbol == "") {
-    log.error("Contract {} is probably innitializable, one of the metadata calls returned null", [address.toHexString()])
+    log.info("Contract {} is probably innitializable, one of the metadata calls returned null", [address.toHexString()])
     ContractDeployerInitializableTemplate.create(address)
   } else {
-    log.error("Creating BeefyERC20Product template for {} from contract-deployer", [address.toHexString()])
+    log.debug("Creating BeefyERC20Product template for {} from contract-deployer", [address.toHexString()])
     fetchAndSaveTokenData(address)
     BeefyERC20ProductTemplate.create(address)
   }

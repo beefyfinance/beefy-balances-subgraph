@@ -28,7 +28,7 @@ export function handleContractDeployedInitializableInitialized(event: Initialize
     return
   }
 
-  log.error("Creating BeefyERC20Product template for {} from contract-deployer initialize event", [tokenAddress.toHexString()])
+  log.debug("Creating BeefyERC20Product template for {} from contract-deployer initialize event", [tokenAddress.toHexString()])
   fetchAndSaveTokenData(tokenAddress)
   BeefyERC20ProductTemplate.create(tokenAddress)
 }
