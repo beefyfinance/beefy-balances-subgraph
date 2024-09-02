@@ -194,6 +194,8 @@ dataSources:
       abis: &contractDeployerAbis
         - name: ContractDeployer
           file: ./abis/beefy/ContractDeployer.json
+        - name: IERC20
+          file: ./abis/IERC20/IERC20.json
       eventHandlers:
         - event: ContractDeployed(indexed bytes32,address)
           handler: handleContractDeployedWithDeployer
