@@ -9,10 +9,10 @@
   "beefyClassicBoostFactoryAddress": "0x6f168346aed66f37cd972191ec4c3db11b8e5ecd",
   "beefyClassicBoostFactoryStartBlock": 19295600,
 
-  "beefyContractDeployerAddress": "0xb2b8a4a1518341fa2f405ff2e1c9bb5ea9001530",
-  "beefyContractDeployerStartBlock": 17986135,
-  "beefyContractDeployerAddress_2": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
-  "beefyContractDeployerStartBlock_2": 17872126,
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 17872126,
+  "beefyContractDeployerAddress_2": "0xb2b8a4a1518341fa2f405ff2e1c9bb5ea9001530",
+  "beefyContractDeployerStartBlock_2": 17986135,
 
   "vaultInitializedEvent": "OwnershipTransferred(indexed address,indexed address)"
 }
