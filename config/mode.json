@@ -1,5 +1,6 @@
 {
   "network": "mode-mainnet",
+  "indexerHintPrune": 3000000,
   "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
   "burnAddress": "0x000000000000000000000000000000000000dead",
 

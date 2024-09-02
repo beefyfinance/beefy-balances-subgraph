@@ -12,9 +12,15 @@ This Subgraph sources events from the Beefy contracts in different networks.
 - [Base](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-base/latest/gn)
 - [Bsc](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-bsc/latest/gn)
 - [Ethereum](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-ethereum/latest/gn)
+- [Fraxtal](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-fraxtal/latest/gn)
 - [Linea](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-linea/latest/gn)
+- [Manta](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-manta/latest/gn)
 - [Mode](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-mode/latest/gn)
+- [Moonbeam](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-moonbeam/latest/gn)
 - [Optimism](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-optimism/latest/gn)
+- [Polygon](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-polygon/latest/gn)
+- [Sei](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-sei/latest/gn)
+- [Zksync](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-zksync/latest/gn)
 
 # Contributing
 
@@ -62,6 +68,7 @@ yarn test:lint # run prettier linter
 ### How to add a new network
 
 1. Add the network configuration [config/<network>.json](config/).
+   - `indexerHintPrune` is the number of blocks to keep for the indexer hint, aim for 2 months. Can be set to `"auto"` to prune as much as possible. Recommended for performance and cost. Or set to `"never"` to keep all updates history. ([Thegraph docs](https://thegraph.com/docs/en/cookbook/pruning/#how-to-prune-a-subgraph-with-indexerhints))
 2. Add dev RPCs in graph-node config [docker/graph-node/config.toml](docker/graph-node/config.toml).
 3. Add a new `prepare:<network>` script in [package.json](package.json).
 4. Add the chain in `.github/workflows/Release.yml` to configure deployments.
@@ -73,7 +80,8 @@ yarn test:lint # run prettier linter
    - Test the data in the dev provider subgraph explorer
    - Manually deploy the new chain in PROD for the first version: `./bin/deploy.sh <chain> <dev provider>`
 6. Update the `Deployments` section subgraph URLs in this README
-7. Standard formatting with `npm run format`
+7. Update the [Balances API](https://github.com/beefyfinance/beefy-balances-api)
+8. Standard formatting with `npm run format`
 
 ### How to update the schema
 
@@ -114,7 +122,7 @@ yarn test:lint # run prettier linter
 
 #### Release a new version
 
-- Go to https://github.com/beefyfinance/l2-lxp-liquidity-subgraph/releases
+- Go to https://github.com/beefyfinance/beefy-balances-subgraph/releases
 - Add a new realease with a tag matching [semver](https://semver.org/) (tag matching X.X.X)
 - Github actions will update all subgraph
 - Monitor the indexing progress in the subgraph explorer

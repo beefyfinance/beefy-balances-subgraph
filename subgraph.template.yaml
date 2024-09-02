@@ -5,7 +5,7 @@ schema:
   file: ./schema.graphql
 indexerHints:
   # we want to be able to issue time-travel queries for historical data
-  prune: never
+  prune: {{indexerHintPrune}}
 dataSources:
 
   {{#clmManagerFactoryAddress}}
@@ -25,7 +25,7 @@ dataSources:
         - Token
         - Account
         - TokenBalance
-      abis: &abis
+      abis: &clmAbis
         - name: ClmManagerFactory
           file: ./abis/beefy/clm/ClmManagerFactory.json
         - name: ClmManager
@@ -72,7 +72,7 @@ dataSources:
       language: wasm/assemblyscript
       file: ./src/clm/mapping/reward-pool-factory.ts
       entities: *clmEntities
-      abis: *abis
+      abis: *clmAbis
       eventHandlers:
         - event: ProxyCreated(string,address)
           handler: handleRewardPoolCreated
@@ -110,7 +110,23 @@ dataSources:
         - Investor
         - Token
         - Transaction
-      abis: *abis
+      abis: &classicAbis
+        - name: ClmManagerFactory
+          file: ./abis/beefy/clm/ClmManagerFactory.json
+        - name: ClmManager
+          file: ./abis/beefy/clm/ClmManager.json
+        - name: RewardPoolFactory
+          file: ./abis/beefy/clm/RewardPoolFactory.json
+        - name: RewardPool
+          file: ./abis/beefy/clm/RewardPool.json
+        - name: ClassicVaultFactory
+          file: ./abis/beefy/classic/ClassicVaultFactory.json
+        - name: ClassicVault
+          file: ./abis/beefy/classic/ClassicVault.json
+        - name: ClassicBoostFactory
+          file: ./abis/beefy/classic/ClassicBoostFactory.json
+        - name: IERC20
+          file: ./abis/IERC20/IERC20.json
       eventHandlers:
         - event: ProxyCreated(address)
           handler: handleClassicVaultOrStrategyCreated
@@ -140,8 +156,8 @@ dataSources:
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
       file: ./src/classic/mapping/boost-factory.ts
-      entities: *clmEntities
-      abis: *abis
+      entities: *classicEntities
+      abis: *classicAbis
       eventHandlers:
         - event: BoostDeployed(indexed address)
           handler: handleClassicBoostCreated
@@ -158,7 +174,33 @@ dataSources:
     mapping: *classicBoostFactoryMapping
   {{/beefyClassicBoostFactoryAddress_2}}
 
+  {{#beefyContractDeployerAddress}}
+  - kind: ethereum/contract
+    name: ContractDeployer
+    network: {{network}}
+    source:
+      address: "{{beefyContractDeployerAddress}}"
+      abi: ContractDeployer
+      startBlock: {{beefyContractDeployerStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/common/mapping/contract-deployer.ts
+      entities: 
+        - Token
+        - Account
+        - TokenBalance
+      abis: 
+        - name: ContractDeployer
+          file: ./abis/beefy/ContractDeployer.json
+      eventHandlers:
+        - event: ContractDeployed(indexed bytes32,address)
+          handler: handleContractDeployedWithDeployer
+  {{/beefyContractDeployerAddress}}
+
 templates:
+  {{#clmManagerFactoryAddress}}
   - name: ClmManager
     kind: ethereum/contract
     network: {{network}}
@@ -170,11 +212,13 @@ templates:
       language: wasm/assemblyscript
       file: ./src/clm/mapping/manager.ts
       entities: *clmEntities
-      abis: *abis
+      abis: *clmAbis
       eventHandlers:
         - event: Initialized(uint8)
           handler: handleClmManagerInitialized
+  {{/clmManagerFactoryAddress}}
 
+  {{#rewardPoolFactoryAddress}}
   - name: ClmRewardPool
     kind: ethereum/contract
     network: {{network}}
@@ -186,11 +230,13 @@ templates:
       language: wasm/assemblyscript
       file: ./src/clm/mapping/reward-pool.ts
       entities: *clmEntities
-      abis: *abis
+      abis: *clmAbis
       eventHandlers:
         - event: Initialized(uint8)
           handler: handleRewardPoolInitialized
-          
+  {{/rewardPoolFactoryAddress}}
+
+  {{#beefyClassicVaultFactoryAddress}}
   - name: ClassicVault
     kind: ethereum/contract
     network: {{network}}
@@ -202,10 +248,11 @@ templates:
       language: wasm/assemblyscript
       file: ./src/classic/mapping/vault.ts
       entities: *classicEntities
-      abis: *abis
+      abis: *classicAbis
       eventHandlers:
         - event: {{vaultInitializedEvent}}
           handler: handleClassicVaultInitialized
+  {{/beefyClassicVaultFactoryAddress}}
 
   - name: BeefyERC20Product
     kind: ethereum/contract
@@ -217,8 +264,8 @@ templates:
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
       file: ./src/common/mapping/erc20.ts
-      entities: *clmEntities
-      abis: *abis
+      entities: *classicEntities
+      abis: *classicAbis
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleProductTransfer
