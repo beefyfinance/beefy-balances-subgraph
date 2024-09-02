@@ -11,8 +11,6 @@
   "rewardPoolFactoryStartBlock": 40991544,
   "beefyClassicVaultFactoryAddress": "0xe596eC590DE52C09c8D1C7A1294B32F957A7c94e",
   "beefyClassicVaultFactoryStartBlock": 24729526,
-  "beefyClassicBoostFactoryAddress": "0x0000000000000000000100010000000000000000",
-  "beefyClassicBoostFactoryStartBlock": 38435926,
 
   "vaultInitializedEvent": "Initialized(uint8)"
 }

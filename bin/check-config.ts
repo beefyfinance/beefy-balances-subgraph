@@ -9,6 +9,8 @@ type BeefyVault = {
   strategy_address: Hex
   vault_token_symbol: string
   chain: string
+  eol: boolean
+  tvl: number
   reward_pools: BeefyRewardPool[]
   boosts: BeefyBoost[]
   pointStructureIds: string[]
@@ -149,7 +151,7 @@ type ApiHolderCount = {
 }
 
 async function main() {
-  const [holderCountsData, cowVaultsData, mooVaultsData, clmRewardPoolData, [boostData, vaultRewardPoolData]] = await Promise.all([
+  const [holderCountsData, cowVaultsData, mooVaultsData, clmRewardPoolData, [boostData, vaultRewardPoolData], tvlData] = await Promise.all([
     fetch(`https://balance-api.beefy.finance/api/v1/holders/counts/all`)
       .then((res) => res.json())
       .then((res) => res as ApiHolderCount[]),
@@ -165,6 +167,10 @@ async function main() {
     fetch(`https://api.beefy.finance/boosts`)
       .then((res) => res.json())
       .then((res) => [(res as ApiBoost[]).filter((g) => g.version !== 2), (res as ApiBoost[]).filter((g) => g.version === 2)] as const),
+    fetch(`https://api.beefy.finance/tvl?smth=${Math.random()}`)
+      .then((res) => res.json())
+      .then((res) => res as Record<string, Record<string, number>>)
+      .then((res) => Object.values(res).reduce((acc, v) => Object.assign(acc, v), {} as Record<string, number>)),
   ])
 
   const clmManagerAddresses = new Set(cowVaultsData.map((v) => v.earnedTokenAddress.toLocaleLowerCase()))
@@ -189,10 +195,12 @@ async function main() {
       vault_address,
       chain: vault.chain,
       vault_token_symbol: vault.earnedToken,
+      eol: vault.status === "eol",
       protocol_type,
       platformId: vault.platformId,
       strategy_address: vault.strategy.toLocaleLowerCase() as Hex,
       undelying_lp_address,
+      tvl: tvlData[vault.id] ?? 0,
       reward_pools: reward_pools.map((pool) => ({
         id: pool.id,
         clm_address: pool.tokenAddress.toLocaleLowerCase() as Hex,
@@ -229,9 +237,11 @@ async function main() {
       vault_address,
       chain: vault.chain,
       vault_token_symbol: vault.earnedToken,
+      eol: vault.status === "eol",
       ...additionalConfig,
       strategy_address: vault.strategy.toLocaleLowerCase() as Hex,
       undelying_lp_address: underlying_lp_address,
+      tvl: tvlData[vault.id] ?? 0,
       reward_pools: reward_pools.map((pool) => ({
         id: pool.id,
         clm_address: pool.tokenAddress.toLocaleLowerCase() as Hex,
@@ -258,26 +268,40 @@ async function main() {
   )
 
   // check for missing holder counts
+  const missingHolderCounts: BeefyVault[] = []
   for (const vault of allConfigs) {
+    const level = vault.eol ? "ERROR" : "WARN"
     if (!countsPerToken[`${vault.chain}:${vault.vault_address}`]) {
-      console.error(`ERROR: Missing holder count for ${vault.id} with address ${vault.chain}:${vault.vault_address}`)
+      console.error(`${level}: Missing holder count for ${vault.id} with address ${vault.chain}:${vault.vault_address}`)
+      missingHolderCounts.push(vault)
     }
     if (vault.protocol_type === "beefy_clm_vault") {
       if (!countsPerToken[`${vault.chain}:${vault.beefy_clm_manager.vault_address}`]) {
-        console.error(`ERROR: Missing holder count for ${vault.id} with CLM address ${vault.chain}:${vault.beefy_clm_manager.vault_address}`)
+        console.error(`${level}: Missing holder count for ${vault.id} with CLM address ${vault.chain}:${vault.beefy_clm_manager.vault_address}`)
+        missingHolderCounts.push(vault)
       }
     }
     for (const pool of vault.reward_pools) {
       if (!countsPerToken[`${vault.chain}:${pool.clm_address}`]) {
-        console.error(`ERROR: Missing holder count for ${vault.id}'s Reward Pool with address ${vault.chain}:${pool.clm_address}`)
+        console.error(`${level}: Missing holder count for ${vault.id}'s Reward Pool with address ${vault.chain}:${pool.clm_address}`)
+        missingHolderCounts.push(vault)
       }
     }
     for (const boost of vault.boosts) {
       if (!countsPerToken[`${vault.chain}:${boost.underlying_address}`]) {
-        console.error(`ERROR: Missing holder count for ${vault.id}'s BOOST with address ${vault.chain}:${boost.underlying_address}`)
+        console.error(`${level}: Missing holder count for ${vault.id}'s BOOST with address ${vault.chain}:${boost.underlying_address}`)
+        missingHolderCounts.push(vault)
       }
     }
   }
+
+  // display top 30 missing TVL to focus on the most important vaults
+  missingHolderCounts.sort((a, b) => b.tvl - a.tvl)
+  console.error(`\n\nMissing TVL for top 30 vaults:`)
+  missingHolderCounts.slice(0, 100).forEach((v) => {
+    const level = v.eol ? "ERROR" : "WARN"
+    console.error(`${level}: Missing TVL for ${v.chain}:${v.id}:${v.vault_address}: ${v.tvl}`)
+  })
 }
 
 main()

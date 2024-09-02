@@ -8,6 +8,7 @@ indexerHints:
   prune: never
 dataSources:
 
+  {{#clmManagerFactoryAddress}}
   - kind: ethereum/contract
     name: ClmManagerFactory
     network: {{network}}
@@ -44,6 +45,7 @@ dataSources:
       eventHandlers:
         - event: ProxyCreated(address)
           handler: handleClmManagerCreated
+  {{/clmManagerFactoryAddress}}
 
   {{#clmManagerFactoryAddress_2}}
   - kind: ethereum/contract
@@ -56,6 +58,7 @@ dataSources:
     mapping: *clmManagerFactoryMapping
   {{/clmManagerFactoryAddress_2}}
           
+  {{#rewardPoolFactoryAddress}}
   - kind: ethereum/contract
     name: RewardPoolFactory
     network: {{network}}
@@ -73,6 +76,7 @@ dataSources:
       eventHandlers:
         - event: ProxyCreated(string,address)
           handler: handleRewardPoolCreated
+  {{/rewardPoolFactoryAddress}}
 
   {{#rewardPoolFactoryAddress_2}}
   - kind: ethereum/contract
@@ -85,6 +89,7 @@ dataSources:
     mapping: *rewardPoolFactoryMapping
   {{/rewardPoolFactoryAddress_2}}
 
+  {{#beefyClassicVaultFactoryAddress}}
   - kind: ethereum/contract
     name: ClassicVaultFactory
     network: {{network}}
@@ -109,6 +114,7 @@ dataSources:
       eventHandlers:
         - event: ProxyCreated(address)
           handler: handleClassicVaultOrStrategyCreated
+  {{/beefyClassicVaultFactoryAddress}}
 
   {{#beefyClassicVaultFactoryAddress_2}}
   - kind: ethereum/contract
@@ -121,6 +127,7 @@ dataSources:
     mapping: *classicVaultFactoryMapping
   {{/beefyClassicVaultFactoryAddress_2}}
 
+  {{#beefyClassicBoostFactoryAddress}}
   - kind: ethereum/contract
     name: ClassicBoostFactory
     network: {{network}}
@@ -138,6 +145,7 @@ dataSources:
       eventHandlers:
         - event: BoostDeployed(indexed address)
           handler: handleClassicBoostCreated
+  {{/beefyClassicBoostFactoryAddress}}
 
   {{#beefyClassicBoostFactoryAddress_2}}
   - kind: ethereum/contract

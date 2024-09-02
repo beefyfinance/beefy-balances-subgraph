@@ -3,12 +3,6 @@
   "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
   "burnAddress": "0x000000000000000000000000000000000000dead",
 
-  "clmManagerFactoryAddress": "0x0000000000000000000100010000000000000000",
-  "clmManagerFactoryStartBlock": 19295600,
-  "clmStrategyFactoryAddress": "0x0000000000000000000100010000000000000000",
-  "clmStrategyFactoryStartBlock": 19295600,
-  "rewardPoolFactoryAddress": "0x0000000000000000000100010000000000000000",
-  "rewardPoolFactoryStartBlock": 19295600,
   "beefyClassicVaultFactoryAddress": "0xC551dDCE8e5E657503Cd67A39713c06F2c0d2e97",
   "beefyClassicVaultFactoryStartBlock": 15891216,
   "beefyClassicBoostFactoryAddress": "0x6f168346aed66f37cd972191ec4c3db11b8e5ecd",
