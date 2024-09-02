@@ -15,7 +15,7 @@ dataSources:
       address: "{{clmManagerFactoryAddress}}"
       abi: ClmManagerFactory
       startBlock: {{clmManagerFactoryStartBlock}}
-    mapping:
+    mapping: &clmManagerFactoryMapping
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
@@ -44,6 +44,17 @@ dataSources:
       eventHandlers:
         - event: ProxyCreated(address)
           handler: handleClmManagerCreated
+
+  {{#clmManagerFactoryAddress_2}}
+  - kind: ethereum/contract
+    name: ClmManagerFactory2
+    network: {{network}}
+    source:
+      address: "{{clmManagerFactoryAddress_2}}"
+      abi: ClmManagerFactory
+      startBlock: {{clmManagerFactoryStartBlock_2}}
+    mapping: *clmManagerFactoryMapping
+  {{/clmManagerFactoryAddress_2}}
           
   - kind: ethereum/contract
     name: RewardPoolFactory
@@ -52,7 +63,7 @@ dataSources:
       address: "{{rewardPoolFactoryAddress}}"
       abi: RewardPoolFactory
       startBlock: {{rewardPoolFactoryStartBlock}}
-    mapping:
+    mapping: &rewardPoolFactoryMapping
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
@@ -63,6 +74,17 @@ dataSources:
         - event: ProxyCreated(string,address)
           handler: handleRewardPoolCreated
 
+  {{#rewardPoolFactoryAddress_2}}
+  - kind: ethereum/contract
+    name: RewardPoolFactory2
+    network: {{network}}
+    source:
+      address: "{{rewardPoolFactoryAddress_2}}"
+      abi: RewardPoolFactory
+      startBlock: {{rewardPoolFactoryStartBlock_2}}
+    mapping: *rewardPoolFactoryMapping
+  {{/rewardPoolFactoryAddress_2}}
+
   - kind: ethereum/contract
     name: ClassicVaultFactory
     network: {{network}}
@@ -70,7 +92,7 @@ dataSources:
       address: "{{beefyClassicVaultFactoryAddress}}"
       abi: ClassicVaultFactory
       startBlock: {{beefyClassicVaultFactoryStartBlock}}
-    mapping:
+    mapping: &classicVaultFactoryMapping
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
@@ -87,7 +109,18 @@ dataSources:
       eventHandlers:
         - event: ProxyCreated(address)
           handler: handleClassicVaultOrStrategyCreated
-          
+
+  {{#beefyClassicVaultFactoryAddress_2}}
+  - kind: ethereum/contract
+    name: ClassicVaultFactory2
+    network: {{network}}
+    source:
+      address: "{{beefyClassicVaultFactoryAddress_2}}"
+      abi: ClassicVaultFactory
+      startBlock: {{beefyClassicVaultFactoryStartBlock_2}}
+    mapping: *classicVaultFactoryMapping
+  {{/beefyClassicVaultFactoryAddress_2}}
+
   - kind: ethereum/contract
     name: ClassicBoostFactory
     network: {{network}}
@@ -95,7 +128,7 @@ dataSources:
       address: "{{beefyClassicBoostFactoryAddress}}"
       abi: ClassicBoostFactory
       startBlock: {{beefyClassicBoostFactoryStartBlock}}
-    mapping:
+    mapping: &classicBoostFactoryMapping
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
@@ -105,6 +138,17 @@ dataSources:
       eventHandlers:
         - event: BoostDeployed(indexed address)
           handler: handleClassicBoostCreated
+
+  {{#beefyClassicBoostFactoryAddress_2}}
+  - kind: ethereum/contract
+    name: ClassicBoostFactory2
+    network: {{network}}
+    source:
+      address: "{{beefyClassicBoostFactoryAddress_2}}"
+      abi: ClassicBoostFactory
+      startBlock: {{beefyClassicBoostFactoryStartBlock_2}}
+    mapping: *classicBoostFactoryMapping
+  {{/beefyClassicBoostFactoryAddress_2}}
 
 templates:
   - name: ClmManager
