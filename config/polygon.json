@@ -13,5 +13,8 @@
   "beefyClassicVaultFactoryAddress": "0x5a7Bdd60d6004aaED4C06cA16434f4b657d76C3D",
   "beefyClassicVaultFactoryStartBlock": 58270050,
 
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 46067822,
+
   "vaultInitializedEvent": "Initialized(uint8)"
 }

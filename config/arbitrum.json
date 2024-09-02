@@ -15,6 +15,9 @@
   "beefyClassicBoostFactoryAddress": "0x2951c806a75b19954ce0bed477676a54f3c1c200",
   "beefyClassicBoostFactoryStartBlock": 131261823,
 
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 119462875,
+
   "clmManagerFactoryAddress_2": "0xB45B92C318277d57328fE09DD5cF6Bd53F4F269B",
   "clmManagerFactoryStartBlock_2": 198239651,
   "clmStrategyFactoryAddress_2": "0xB37c7C935CcE547Eb858Fc8F2d8C3B48597f4aE9",

@@ -182,22 +182,34 @@ dataSources:
       address: "{{beefyContractDeployerAddress}}"
       abi: ContractDeployer
       startBlock: {{beefyContractDeployerStartBlock}}
-    mapping:
+    mapping: &contractDeployerMapping
       kind: ethereum/events
       apiVersion: 0.0.7 # 0xgraph's version
       language: wasm/assemblyscript
       file: ./src/common/mapping/contract-deployer.ts
-      entities: 
+      entities: &contractDeployerEntities
         - Token
         - Account
         - TokenBalance
-      abis: 
+      abis: &contractDeployerAbis
         - name: ContractDeployer
           file: ./abis/beefy/ContractDeployer.json
       eventHandlers:
         - event: ContractDeployed(indexed bytes32,address)
           handler: handleContractDeployedWithDeployer
   {{/beefyContractDeployerAddress}}
+
+  {{#beefyContractDeployerAddress_2}}
+  - kind: ethereum/contract
+    name: ContractDeployer2
+    network: {{network}}
+    source:
+      address: "{{beefyContractDeployerAddress_2}}"
+      abi: ContractDeployer
+      startBlock: {{beefyContractDeployerStartBlock_2}}
+    mapping: *contractDeployerMapping
+  {{/beefyContractDeployerAddress_2}}
+
 
 templates:
   {{#clmManagerFactoryAddress}}

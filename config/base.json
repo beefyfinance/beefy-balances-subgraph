@@ -15,5 +15,8 @@
   "beefyClassicBoostFactoryAddress": "0x9a313205f50e1192da6d71d1e32dad3487230c55",
   "beefyClassicBoostFactoryStartBlock": 12323814,
 
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 2366590,
+
   "vaultInitializedEvent": "Initialized(uint8)"
 }
