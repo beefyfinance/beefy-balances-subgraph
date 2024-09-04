@@ -21,3 +21,5 @@ yarn --silent run mustache config/$CHAIN.json src/config.template.ts > src/confi
 RNG=$((1 + $RANDOM % 100000))
 echo '{"random": '$RNG'}' > random.json
 yarn --silent run mustache random.json src/random.template.ts > src/random.ts 
+
+yarn --silent run mustache data/${CHAIN}_data.json src/classic/bind_old_products.template.ts > src/classic/bind_old_products.ts

@@ -33,6 +33,10 @@ export function getToken(tokenAddress: Bytes): Token {
   return token
 }
 
+export function isNewToken(token: Token): boolean {
+  return token.symbol == "" && token.name == ""
+}
+
 export function getTokenStatistic(tokenAddress: Bytes): TokenStatistic {
   let tokenStatistic = TokenStatistic.load(tokenAddress)
   if (!tokenStatistic) {

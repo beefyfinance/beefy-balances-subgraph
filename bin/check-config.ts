@@ -267,33 +267,62 @@ async function main() {
     {} as Record<string, number>,
   )
 
+  const dataFileContentPerChain = {} as any
+
   // check for missing holder counts
   const missingHolderCounts: BeefyVault[] = []
   for (const vault of allConfigs) {
     const subgraphchain = vault.chain === "avax" ? "avalanche" : vault.chain === "one" ? "harmony" : vault.chain
+    dataFileContentPerChain[subgraphchain] = dataFileContentPerChain[subgraphchain] || { old_vaults: [], old_boosts: [] }
+
     const level = vault.eol ? "ERROR" : "WARN"
     if (!countsPerToken[`${subgraphchain}:${vault.vault_address}`]) {
       console.error(`${level}: Missing holder count for ${vault.id} with address ${subgraphchain}:${vault.vault_address}`)
       missingHolderCounts.push(vault)
+      dataFileContentPerChain[subgraphchain].old_vaults.push(vault.vault_address)
     }
     if (vault.protocol_type === "beefy_clm_vault") {
       if (!countsPerToken[`${subgraphchain}:${vault.beefy_clm_manager.vault_address}`]) {
         console.error(`${level}: Missing holder count for ${vault.id} with CLM address ${subgraphchain}:${vault.beefy_clm_manager.vault_address}`)
         missingHolderCounts.push(vault)
+        dataFileContentPerChain[subgraphchain].old_vaults.push(vault.beefy_clm_manager.vault_address)
       }
     }
     for (const pool of vault.reward_pools) {
       if (!countsPerToken[`${subgraphchain}:${pool.clm_address}`]) {
         console.error(`${level}: Missing holder count for ${vault.id}'s Reward Pool with address ${subgraphchain}:${pool.reward_pool_address}`)
         missingHolderCounts.push(vault)
+        dataFileContentPerChain[subgraphchain].old_boosts.push(pool.reward_pool_address)
       }
     }
     for (const boost of vault.boosts) {
       if (!countsPerToken[`${subgraphchain}:${boost.underlying_address}`]) {
         console.error(`${level}: Missing holder count for ${vault.id}'s BOOST with address ${subgraphchain}:${boost.boost_address}`)
         missingHolderCounts.push(vault)
+        dataFileContentPerChain[subgraphchain].old_boosts.push(boost.boost_address)
       }
     }
+  }
+
+  // write data files
+  for (const chain of Object.keys(dataFileContentPerChain)) {
+    const fs = require("fs")
+
+    // only if the chain has a config file
+    if (!fs.existsSync(`./config/${chain}.json`)) {
+      continue
+    }
+
+    const targetFile = `./data/${chain}_data.json`
+    const dataFileContent = dataFileContentPerChain[chain]
+    const existingDataFileContentIfAny = fs.existsSync(targetFile) ? require(targetFile) : { old_vaults: [], old_boosts: [] }
+
+    dataFileContent.old_vaults = dataFileContent.old_vaults.concat(existingDataFileContentIfAny.old_vaults)
+    dataFileContent.old_boosts = dataFileContent.old_boosts.concat(existingDataFileContentIfAny.old_boosts)
+    dataFileContent.old_vaults = Array.from(new Set(dataFileContent.old_vaults))
+    dataFileContent.old_boosts = Array.from(new Set(dataFileContent.old_boosts))
+
+    fs.writeFileSync(targetFile, JSON.stringify(dataFileContent, null, 2))
   }
 
   // display top 30 missing TVL to focus on the most important vaults

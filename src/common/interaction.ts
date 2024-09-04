@@ -6,6 +6,7 @@ import { getTokenBalance } from "./entity/balance"
 import { getToken, getTokenStatistic } from "./entity/token"
 import { shouldIgnoreContract } from "./entity/ignored"
 import { ZERO_BI } from "./utils/decimal"
+import { fetchAndSaveTokenData } from "./utils/token"
 
 export function handleProductTransfer(event: TransferEvent): void {
   if (event.params.value.equals(ZERO_BI)) {
@@ -19,6 +20,8 @@ export function handleProductTransfer(event: TransferEvent): void {
   }
 
   const tokenAddress = event.address
+  fetchAndSaveTokenData(tokenAddress)
+
   const statistic = getTokenStatistic(tokenAddress)
 
   if (event.params.from.notEqual(SHARE_TOKEN_MINT_ADDRESS) && event.params.from.notEqual(BURN_ADDRESS)) {

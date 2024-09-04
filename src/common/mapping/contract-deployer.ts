@@ -4,7 +4,6 @@ import {
 } from "../../../generated/templates"
 import { ContractDeployed as ContractDeployedEvent } from "../../../generated/ContractDeployer/ContractDeployer"
 import { IERC20 as IERC20Contract } from "../../../generated/templates/BeefyERC20Product/IERC20"
-import { fetchAndSaveTokenData } from "../utils/token"
 import { Address, log } from "@graphprotocol/graph-ts"
 
 export function handleContractDeployedWithDeployer(event: ContractDeployedEvent): void {
@@ -37,7 +36,6 @@ export function handleContractDeployedWithDeployer(event: ContractDeployedEvent)
     ContractDeployerInitializableTemplate.create(address)
   } else {
     log.debug("Creating BeefyERC20Product template for {} from contract-deployer", [address.toHexString()])
-    fetchAndSaveTokenData(address)
     BeefyERC20ProductTemplate.create(address)
   }
 }

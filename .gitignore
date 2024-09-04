@@ -14,3 +14,5 @@ random.json
 tests/.latest.json
 
 *.log
+
+src/classic/bind_old_products.ts

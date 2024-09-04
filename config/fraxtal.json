@@ -3,6 +3,7 @@
   "indexerHintPrune": 3000000,
   "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
   "burnAddress": "0x000000000000000000000000000000000000dead",
+  "firstBlock": 2365710,
 
   "beefyClassicVaultFactoryAddress": "0x91BB303E972995EbE5f593BCddBb6F5Ef49Dbcbd",
   "beefyClassicVaultFactoryStartBlock": 2366784,

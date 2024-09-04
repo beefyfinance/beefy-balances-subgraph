@@ -215,6 +215,35 @@ dataSources:
   {{/beefyContractDeployerAddress_2}}
 
 
+  {{#firstBlock}}
+  - kind: ethereum/contract
+    name: ConfigBinder
+    network: {{network}}
+    source:
+      address: "{{burnAddress}}"
+      abi: IERC20
+      startBlock: {{firstBlock}}
+      endBlock: {{firstBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 0xgraph's version
+      language: wasm/assemblyscript
+      file: ./src/classic/mapping/config-binder.ts
+      entities: 
+        - Classic
+        - ClassicBoost
+        - ClassicPosition
+        - ClassicVault
+        - Investor
+        - Token
+        - Transaction
+      abis:
+        - name: IERC20
+          file: ./abis/IERC20/IERC20.json
+      blockHandlers:
+        - handler: bindOldProducts
+  {{/firstBlock}}
+
 templates:
   {{#clmManagerFactoryAddress}}
   - name: ClmManager

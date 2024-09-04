@@ -2,7 +2,6 @@ import { BeefyERC20Product as BeefyERC20ProductTemplate } from "../../../generat
 import { Initialized as InitializedEvent } from "../../../generated/ContractDeployer/Initializable"
 import { IERC20 as IERC20Contract } from "../../../generated/templates/BeefyERC20Product/IERC20"
 import { Address, log } from "@graphprotocol/graph-ts"
-import { fetchAndSaveTokenData } from "../utils/token"
 
 export function handleContractDeployedInitializableInitialized(event: InitializedEvent): void {
   const tokenAddress = event.address
@@ -29,6 +28,5 @@ export function handleContractDeployedInitializableInitialized(event: Initialize
   }
 
   log.debug("Creating BeefyERC20Product template for {} from contract-deployer initialize event", [tokenAddress.toHexString()])
-  fetchAndSaveTokenData(tokenAddress)
   BeefyERC20ProductTemplate.create(tokenAddress)
 }

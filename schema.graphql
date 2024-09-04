@@ -12,6 +12,7 @@ type Token @entity(immutable: true) {
   name: String
   "The number of decimals the token uses"
   decimals: BigInt!
+  
   "Holder list of the token"
   balances: [TokenBalance!]! @derivedFrom(field: "token")
 }
