@@ -1,3 +1,4 @@
 subgraph.template.yaml
 src/config.template.ts
+src/classic/bind_old_products.ts
 tests/.latest.json
