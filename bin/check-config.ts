@@ -270,26 +270,27 @@ async function main() {
   // check for missing holder counts
   const missingHolderCounts: BeefyVault[] = []
   for (const vault of allConfigs) {
+    const subgraphchain = vault.chain === "avax" ? "avalanche" : vault.chain === "one" ? "harmony" : vault.chain
     const level = vault.eol ? "ERROR" : "WARN"
-    if (!countsPerToken[`${vault.chain}:${vault.vault_address}`]) {
-      console.error(`${level}: Missing holder count for ${vault.id} with address ${vault.chain}:${vault.vault_address}`)
+    if (!countsPerToken[`${subgraphchain}:${vault.vault_address}`]) {
+      console.error(`${level}: Missing holder count for ${vault.id} with address ${subgraphchain}:${vault.vault_address}`)
       missingHolderCounts.push(vault)
     }
     if (vault.protocol_type === "beefy_clm_vault") {
-      if (!countsPerToken[`${vault.chain}:${vault.beefy_clm_manager.vault_address}`]) {
-        console.error(`${level}: Missing holder count for ${vault.id} with CLM address ${vault.chain}:${vault.beefy_clm_manager.vault_address}`)
+      if (!countsPerToken[`${subgraphchain}:${vault.beefy_clm_manager.vault_address}`]) {
+        console.error(`${level}: Missing holder count for ${vault.id} with CLM address ${subgraphchain}:${vault.beefy_clm_manager.vault_address}`)
         missingHolderCounts.push(vault)
       }
     }
     for (const pool of vault.reward_pools) {
-      if (!countsPerToken[`${vault.chain}:${pool.clm_address}`]) {
-        console.error(`${level}: Missing holder count for ${vault.id}'s Reward Pool with address ${vault.chain}:${pool.clm_address}`)
+      if (!countsPerToken[`${subgraphchain}:${pool.clm_address}`]) {
+        console.error(`${level}: Missing holder count for ${vault.id}'s Reward Pool with address ${subgraphchain}:${pool.reward_pool_address}`)
         missingHolderCounts.push(vault)
       }
     }
     for (const boost of vault.boosts) {
-      if (!countsPerToken[`${vault.chain}:${boost.underlying_address}`]) {
-        console.error(`${level}: Missing holder count for ${vault.id}'s BOOST with address ${vault.chain}:${boost.underlying_address}`)
+      if (!countsPerToken[`${subgraphchain}:${boost.underlying_address}`]) {
+        console.error(`${level}: Missing holder count for ${vault.id}'s BOOST with address ${subgraphchain}:${boost.boost_address}`)
         missingHolderCounts.push(vault)
       }
     }
