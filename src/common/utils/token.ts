@@ -1,11 +1,11 @@
 import { IERC20 as IERC20Contract } from "../../../generated/templates/BeefyERC20Product/IERC20"
 import { Token } from "../../../generated/schema"
 import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts"
-import { getToken, isNewToken } from "../entity/token"
+import { createTokenObject, getToken, getTokenIfExists } from "../entity/token"
 
 export function fetchAndSaveTokenData(tokenAddress: Bytes): Token {
-  const token = getToken(tokenAddress)
-  if (!isNewToken(token)) {
+  let token = getTokenIfExists(tokenAddress)
+  if (token) {
     return token
   }
 
@@ -22,6 +22,7 @@ export function fetchAndSaveTokenData(tokenAddress: Bytes): Token {
   const tokenName = tokenNameRes.reverted ? "Unknown" : tokenNameRes.value
   const tokenSymbol = tokenSymbolRes.reverted ? "UNKNOWN" : tokenSymbolRes.value
 
+  token = createTokenObject(tokenAddress)
   token.name = tokenName
   token.symbol = tokenSymbol
   token.decimals = BigInt.fromI32(tokenDecimals)

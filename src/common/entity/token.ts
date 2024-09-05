@@ -6,35 +6,36 @@ import { ZERO_BI } from "../utils/decimal"
 export function isNullToken(token: Token): boolean {
   return token.id.equals(ADDRESS_ZERO)
 }
-
-export function getNullToken(): Token {
-  let token = Token.load(ADDRESS_ZERO)
-  if (!token) {
-    token = new Token(ADDRESS_ZERO)
-    token.symbol = "NULL"
-    token.name = "NULL"
-    token.decimals = BigInt.fromI32(18)
-    token.save()
-  }
+function createNullTokenObject(): Token {
+  const token = new Token(ADDRESS_ZERO)
+  token.symbol = "NULL"
+  token.name = "NULL"
+  token.decimals = BigInt.fromI32(18)
   return token
 }
 
 export function getToken(tokenAddress: Bytes): Token {
-  if (tokenAddress == ADDRESS_ZERO) {
-    return getNullToken()
-  }
-  let token = Token.load(tokenAddress)
+  let token = getTokenIfExists(tokenAddress)
   if (!token) {
-    token = new Token(tokenAddress)
-    token.symbol = ""
-    token.name = ""
-    token.decimals = BigInt.fromI32(18)
+    token = createNullTokenObject()
   }
   return token
 }
 
-export function isNewToken(token: Token): boolean {
-  return token.symbol == "" && token.name == ""
+export function getTokenIfExists(tokenAddress: Bytes): Token | null {
+  return Token.load(tokenAddress)
+}
+
+export function createTokenObject(tokenAddress: Bytes): Token {
+  if (tokenAddress == ADDRESS_ZERO) {
+    return createNullTokenObject()
+  }
+
+  const token = new Token(tokenAddress)
+  token.symbol = ""
+  token.name = ""
+  token.decimals = BigInt.fromI32(18)
+  return token
 }
 
 export function getTokenStatistic(tokenAddress: Bytes): TokenStatistic {
