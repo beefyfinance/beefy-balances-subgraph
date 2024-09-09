@@ -242,6 +242,11 @@ dataSources:
           file: ./abis/IERC20/IERC20.json
       blockHandlers:
         - handler: bindOldProducts
+          # this is a trick to avoid a bug in the indexer that makes all indexing extra slow
+          # it must be removed once the bug is fixed
+          filter:
+            kind: polling
+            every: 1
   {{/firstBlock}}
 
 templates:
