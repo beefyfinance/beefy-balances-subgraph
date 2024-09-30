@@ -29,6 +29,7 @@
     "prepare:moonbeam": "./bin/prepare.sh moonbeam",
     "prepare:optimism": "./bin/prepare.sh optimism",
     "prepare:polygon": "./bin/prepare.sh polygon",
+    "prepare:rootstock": "./bin/prepare.sh rootstock",
     "prepare:sei": "./bin/prepare.sh sei",
     "prepare:zksync": "./bin/prepare.sh zksync"
   },
