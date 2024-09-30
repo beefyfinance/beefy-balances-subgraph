@@ -1,0 +1,14 @@
+{
+  "network": "metis",
+  "indexerHintPrune": 900000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+  "firstBlock": 411040,
+
+  "beefyClassicVaultFactoryAddress": "0x52d998A110E447648095671bb66993461Da9ea38",
+  "beefyClassicVaultFactoryStartBlock": 4633601,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 7810865,
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

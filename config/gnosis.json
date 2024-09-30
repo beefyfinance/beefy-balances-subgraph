@@ -1,0 +1,15 @@
+{
+  "network": "xdai",
+  "indexerHintPrune": 2000000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+  "firstBlock": 30635344,
+
+  "beefyClassicVaultFactoryAddress": "0x2b0C9702A4724f2BFe7922DB92c4082098533c62",
+  "beefyClassicVaultFactoryStartBlock": 30489787,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 30490311,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}
