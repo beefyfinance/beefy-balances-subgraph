@@ -13,7 +13,7 @@ jobs:
         node: ["21.x"]
         chain:
           [
-            "avalanche",
+            "avax",
             "arbitrum",
             "base",
             "bsc",

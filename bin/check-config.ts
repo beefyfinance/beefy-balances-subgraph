@@ -272,7 +272,7 @@ async function main() {
   // check for missing holder counts
   const missingHolderCounts: BeefyVault[] = []
   for (const vault of allConfigs) {
-    const subgraphchain = vault.chain === "avax" ? "avalanche" : vault.chain === "one" ? "harmony" : vault.chain
+    const subgraphchain = vault.chain === "one" ? "harmony" : vault.chain
     dataFileContentPerChain[subgraphchain] = dataFileContentPerChain[subgraphchain] || { old_vaults: [], old_boosts: [] }
 
     const level = vault.eol ? "ERROR" : "WARN"

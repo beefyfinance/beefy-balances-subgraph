@@ -8,7 +8,7 @@ This Subgraph sources events from the Beefy contracts in different networks.
 
 ### Latest endpoints
 
-- [Avalanche](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-avalanche/latest/gn)
+- [Avalanche](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-avax/latest/gn)
 - [Arbitrum](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-arbitrum/latest/gn)
 - [Base](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-base/latest/gn)
 - [Bsc](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-bsc/latest/gn)

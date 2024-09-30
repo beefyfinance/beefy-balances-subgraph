@@ -15,7 +15,7 @@
     "create-local": "graph create beefyfinance/local --node http://127.0.0.1:8020",
     "deploy-local": "graph deploy beefyfinance/local --node http://127.0.0.1:8020 --ipfs http://localhost:5001",
     "remove-local": "graph remove beefyfinance/local --node http://127.0.0.1:8020",
-    "prepare:avalanche": "./bin/prepare.sh avalanche",
+    "prepare:avax": "./bin/prepare.sh avax",
     "prepare:arbitrum": "./bin/prepare.sh arbitrum",
     "prepare:base": "./bin/prepare.sh base",
     "prepare:bsc": "./bin/prepare.sh bsc",
