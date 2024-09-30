@@ -315,12 +315,17 @@ async function main() {
 
     const targetFile = `./data/${chain}_data.json`
     const dataFileContent = dataFileContentPerChain[chain]
-    const existingDataFileContentIfAny = fs.existsSync(targetFile) ? require(targetFile) : { old_vaults: [], old_boosts: [] }
+    const existingDataFileContentIfAny = fs.existsSync(targetFile)
+      ? JSON.parse(fs.readFileSync(targetFile, "utf8"))
+      : { old_vaults: [], old_boosts: [] }
 
     dataFileContent.old_vaults = dataFileContent.old_vaults.concat(existingDataFileContentIfAny.old_vaults)
     dataFileContent.old_boosts = dataFileContent.old_boosts.concat(existingDataFileContentIfAny.old_boosts)
     dataFileContent.old_vaults = Array.from(new Set(dataFileContent.old_vaults))
     dataFileContent.old_boosts = Array.from(new Set(dataFileContent.old_boosts))
+
+    dataFileContent.old_vaults.sort()
+    dataFileContent.old_boosts.sort()
 
     fs.writeFileSync(targetFile, JSON.stringify(dataFileContent, null, 2))
   }
