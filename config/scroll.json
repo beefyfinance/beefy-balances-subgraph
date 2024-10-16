@@ -1,0 +1,19 @@
+{
+  "network": "scroll",
+
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0x2AfB174c22D9eE334895C4e300ab93154d800aA0",
+  "clmManagerFactoryStartBlock": 10224895,
+  "clmStrategyFactoryAddress": "0xA5Cd8A60a05571141370D184e255777e5c2d5968",
+  "clmStrategyFactoryStartBlock": 10224905,
+  "rewardPoolFactoryAddress": "0xe103ab2f922aa1a56EC058AbfDA2CeEa1e95bCd7",
+  "rewardPoolFactoryStartBlock": 10224898,
+  "beefyClassicVaultFactoryAddress": "0x91BB303E972995EbE5f593BCddBb6F5Ef49Dbcbd",
+  "beefyClassicVaultFactoryStartBlock": 10224183,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 10224183,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

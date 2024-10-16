@@ -32,6 +32,7 @@
     "prepare:optimism": "./bin/prepare.sh optimism",
     "prepare:polygon": "./bin/prepare.sh polygon",
     "prepare:rootstock": "./bin/prepare.sh rootstock",
+    "prepare:scroll": "./bin/prepare.sh scroll",
     "prepare:sei": "./bin/prepare.sh sei",
     "prepare:zksync": "./bin/prepare.sh zksync"
   },

@@ -31,6 +31,7 @@ jobs:
             "polygon",
             "rootstock",
             "sei",
+            "scroll",
             "zksync",
           ]
         os: [ubuntu-latest]
