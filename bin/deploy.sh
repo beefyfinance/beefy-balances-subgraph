@@ -15,7 +15,7 @@ function exit_help {
 function prepare {
     CHAIN=$1
     echo "preparing $CHAIN"
-    yarn prepare:$CHAIN
+    yarn configure $CHAIN
     yarn codegen
     yarn build
 }

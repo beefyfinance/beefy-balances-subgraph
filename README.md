@@ -15,8 +15,12 @@ This Subgraph sources events from the Beefy contracts in different networks.
 - [Ethereum](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-ethereum/latest/gn)
 - [Fantom](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-fantom/latest/gn)
 - [Fraxtal](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-fraxtal/latest/gn)
+- [Gnosis](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-gnosis/latest/gn)
 - [Linea](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-linea/latest/gn)
+- [Lisk](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-lisk/latest/gn)
 - [Manta](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-manta/latest/gn)
+- [Mantle](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-mantle/latest/gn)
+- [Metis](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-metis/latest/gn)
 - [Mode](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-mode/latest/gn)
 - [Moonbeam](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-moonbeam/latest/gn)
 - [Optimism](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-optimism/latest/gn)
@@ -33,8 +37,6 @@ This Subgraph sources events from the Beefy contracts in different networks.
 - Git: [git-scm.com](https://git-scm.com)
 - Node.js: [nodejs.org](https://nodejs.org), see version in [.nvmrc](.nvmrc)
 - Yarn: [yarnpkg.com](https://yarnpkg.com)
-- Docker: [docker.com](https://www.docker.com)
-- Docker Compose: [docker.com](https://docs.docker.com/compose/install/)
 
 ## Setup the project
 
@@ -46,17 +48,6 @@ yarn install
 
 ```bash
 yarn infra:strat
-```
-
-## Deploying the subgraph locally
-
-```bash
-yarn remove-local # if you have already deployed the subgraph
-yarn create-local # create the subgraph locally
-yarn prepare:<network> # apply configuration for the network
-yarn codegen # generate the typescript types
-yarn build # build the subgraph code
-yarn deploy-local # deploy the subgraph locally
 ```
 
 ## Run tests
@@ -74,18 +65,17 @@ yarn test:lint # run prettier linter
 1. Add the network configuration [config/<network>.json](config/).
    - `indexerHintPrune` is the number of blocks to keep for the indexer hint, aim for 2 months. Can be set to `"auto"` to prune as much as possible. Recommended for performance and cost. Or set to `"never"` to keep all updates history. ([Thegraph docs](https://thegraph.com/docs/en/cookbook/pruning/#how-to-prune-a-subgraph-with-indexerhints))
 2. Add dev RPCs in graph-node config [docker/graph-node/config.toml](docker/graph-node/config.toml).
-3. Add a new `prepare:<network>` script in [package.json](package.json).
-4. Add the chain in `.github/workflows/Release.yml` to configure deployments.
-5. Test the build
+3. Add the chain in `.github/workflows/Release.yml` to configure deployments.
+4. Test the build
    - Apply the configuration: `npm run prepare:<chain>`
    - Build the application: `npm run build`
    - Run Tests: `npm run test`
    - Deploy the new chain in DEV: `./bin/deploy.sh <chain> <dev provider>`
    - Test the data in the dev provider subgraph explorer
    - Manually deploy the new chain in PROD for the first version: `./bin/deploy.sh <chain> <dev provider>`
-6. Update the `Deployments` section subgraph URLs in this README
-7. Update the [Balances API](https://github.com/beefyfinance/beefy-balances-api)
-8. Standard formatting with `npm run format`
+5. Update the `Deployments` section subgraph URLs in this README
+6. Update the [Balances API](https://github.com/beefyfinance/beefy-balances-api)
+7. Standard formatting with `npm run format`
 
 ### How to update the schema
 
