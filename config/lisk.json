@@ -1,25 +1,24 @@
 {
-    "network": "lisk",
-    "indexerHintPrune": 2000000,
-  
-    "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
-    "burnAddress": "0x000000000000000000000000000000000000dead",
-    "firstBlock": 8910850,
-  
-    "clmManagerFactoryAddress": "0x3C0b1765C379833b86A1704997019A7496Afdfae",
-    "clmManagerFactoryStartBlock": 9252397,
-    "clmStrategyFactoryAddress": "0x7cac900B2f504047b40F5554F633248f78bD960A",
-    "clmStrategyFactoryStartBlock": 9252416,
-    "rewardPoolFactoryAddress": "0xA5Cd8A60a05571141370D184e255777e5c2d5968",
-    "rewardPoolFactoryStartBlock": 9252403,
-    "beefyClassicVaultFactoryAddress": "0xBC4a342B0c057501E081484A2d24e576E854F823",
-    "beefyClassicVaultFactoryStartBlock": 8910851,
-    "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
-    "beefyClassicBoostFactoryStartBlock": 8910851,
-  
-    "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
-    "beefyContractDeployerStartBlock": 9387884,
- 
-    "vaultInitializedEvent": "Initialized(uint8)"
-  }
-  
+  "network": "lisk",
+  "indexerHintPrune": 2000000,
+
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+  "firstBlock": 8910850,
+
+  "clmManagerFactoryAddress": "0x3C0b1765C379833b86A1704997019A7496Afdfae",
+  "clmManagerFactoryStartBlock": 9252397,
+  "clmStrategyFactoryAddress": "0x7cac900B2f504047b40F5554F633248f78bD960A",
+  "clmStrategyFactoryStartBlock": 9252416,
+  "rewardPoolFactoryAddress": "0xA5Cd8A60a05571141370D184e255777e5c2d5968",
+  "rewardPoolFactoryStartBlock": 9252403,
+  "beefyClassicVaultFactoryAddress": "0xBC4a342B0c057501E081484A2d24e576E854F823",
+  "beefyClassicVaultFactoryStartBlock": 8910851,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 8910851,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 9387884,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}
