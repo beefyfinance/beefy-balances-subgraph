@@ -475,7 +475,6 @@ async function main() {
       }
     }
 
-
     for (const contract of resultData.data.duplicate_config) {
       if (allAddressesInDataConfig.includes(contract.id)) {
         console.error(`${chain}: Contract ${contract.id} is discovered from factory as well`)

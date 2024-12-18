@@ -16,7 +16,5 @@
     "0xf3c2b394c2015e5394a5f97ab18b73a97976a650",
     "0xfb153dd6cb2de5219b36b8c95f2c528a34e2912b"
   ],
-  "no_factory_boosts": [
-    "0x3355df6d4c9c3035724fd0e3914de96a5a83aaf4"
-  ]
+  "no_factory_boosts": ["0x3355df6d4c9c3035724fd0e3914de96a5a83aaf4"]
 }
