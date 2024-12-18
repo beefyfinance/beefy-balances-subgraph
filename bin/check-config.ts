@@ -434,7 +434,8 @@ async function main() {
     if (!fs.existsSync(`./data/${chain}_data.json`)) {
       continue
     }
-    const data = JSON.parse(fs.readFileSync(`./data/${chain}_data.json`, "utf8"))
+    const dataConfig = JSON.parse(fs.readFileSync(`./data/${chain}_data.json`, "utf8"))
+    const allAddressesInDataConfig = [...dataConfig.no_factory_vaults, ...dataConfig.no_factory_boosts]
 
     const gql = `
       query Misconfig {
@@ -474,12 +475,17 @@ async function main() {
       }
     }
 
+
     for (const contract of resultData.data.duplicate_config) {
-      console.error(`${chain}: Contract ${contract.id} is discovered from factory as well`)
+      if (allAddressesInDataConfig.includes(contract.id)) {
+        console.error(`${chain}: Contract ${contract.id} is discovered from factory as well`)
+      }
     }
 
     for (const contract of resultData.data.none_config) {
-      console.error(`${chain}: Contract ${contract.id} is not discovered from factory`)
+      if (allAddressesInDataConfig.includes(contract.id)) {
+        console.error(`${chain}: Contract ${contract.id} is not discovered from factory`)
+      }
     }
   }
 }
