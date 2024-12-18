@@ -425,6 +425,63 @@ async function main() {
       }
     }
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // check contracts in data files are not discovered from factory as well
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  for (const chain of uniqChains) {
+    const fs = require("fs")
+    if (!fs.existsSync(`./data/${chain}_data.json`)) {
+      continue
+    }
+    const data = JSON.parse(fs.readFileSync(`./data/${chain}_data.json`, "utf8"))
+
+    const gql = `
+      query Misconfig {
+        duplicate_config: contracts(where: {
+          factory: true,
+          config: true,
+        }) {
+          id
+        }
+        
+        none_config: contracts(where: {
+          factory: false,
+          config: false,
+        }) {
+          id
+        }
+      }
+    `
+
+    // only use the next version of the subgraph
+    const subgraphUrl = `https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-${chain}/next/gn`
+    const result = await fetch(subgraphUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: gql }),
+    })
+
+    if (!result.ok) {
+      console.error(`Failed to fetch data from subgraph: ${result.statusText}`)
+      continue
+    }
+
+    const resultData = (await result.json()) as {
+      data: {
+        duplicate_config: { id: string }[]
+        none_config: { id: string }[]
+      }
+    }
+
+    for (const contract of resultData.data.duplicate_config) {
+      console.error(`${chain}: Contract ${contract.id} is discovered from factory as well`)
+    }
+
+    for (const contract of resultData.data.none_config) {
+      console.error(`${chain}: Contract ${contract.id} is not discovered from factory`)
+    }
+  }
 }
 
 main()
