@@ -1,4 +1,5 @@
-import { groupBy } from "lodash"
+import { chain, groupBy } from "lodash"
+import { addressBook, Chain as AddressBookChain } from "blockchain-addressbook"
 
 type Hex = `0x${string}`
 
@@ -269,43 +270,92 @@ async function main() {
 
   const dataFileContentPerChain = {} as any
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // check for missing holder counts
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const missingHolderCounts: BeefyVault[] = []
   for (const vault of allConfigs) {
     const subgraphchain = vault.chain === "one" ? "harmony" : vault.chain
-    dataFileContentPerChain[subgraphchain] = dataFileContentPerChain[subgraphchain] || { old_vaults: [], old_boosts: [] }
+    dataFileContentPerChain[subgraphchain] = dataFileContentPerChain[subgraphchain] || { no_factory_vaults: [], no_factory_boosts: [] }
 
     const level = vault.eol ? "ERROR" : "WARN"
     if (!countsPerToken[`${subgraphchain}:${vault.vault_address}`]) {
-      console.error(`${level}: Missing holder count for ${vault.id} with address ${subgraphchain}:${vault.vault_address}`)
+      console.error(
+        `${level}: Missing holder count in balance api for ${vault.chain}:${vault.id} with address ${subgraphchain}:${vault.vault_address}`,
+      )
       missingHolderCounts.push(vault)
-      dataFileContentPerChain[subgraphchain].old_vaults.push(vault.vault_address)
+      dataFileContentPerChain[subgraphchain].no_factory_vaults.push(vault.vault_address)
     }
     if (vault.protocol_type === "beefy_clm_vault") {
       if (!countsPerToken[`${subgraphchain}:${vault.beefy_clm_manager.vault_address}`]) {
-        console.error(`${level}: Missing holder count for ${vault.id} with CLM address ${subgraphchain}:${vault.beefy_clm_manager.vault_address}`)
+        console.error(
+          `${level}: Missing holder count in balance api for ${vault.chain}:${vault.id} with CLM address ${subgraphchain}:${vault.beefy_clm_manager.vault_address}`,
+        )
         missingHolderCounts.push(vault)
-        dataFileContentPerChain[subgraphchain].old_vaults.push(vault.beefy_clm_manager.vault_address)
+        dataFileContentPerChain[subgraphchain].no_factory_vaults.push(vault.beefy_clm_manager.vault_address)
       }
     }
     for (const pool of vault.reward_pools) {
       if (!countsPerToken[`${subgraphchain}:${pool.clm_address}`]) {
-        console.error(`${level}: Missing holder count for ${vault.id}'s Reward Pool with address ${subgraphchain}:${pool.reward_pool_address}`)
+        console.error(
+          `${level}: Missing holder count in balance api for ${vault.chain}:${vault.id}'s Reward Pool with address ${subgraphchain}:${pool.reward_pool_address}`,
+        )
         missingHolderCounts.push(vault)
-        dataFileContentPerChain[subgraphchain].old_boosts.push(pool.reward_pool_address)
+        dataFileContentPerChain[subgraphchain].no_factory_boosts.push(pool.reward_pool_address)
       }
     }
     for (const boost of vault.boosts) {
       if (!countsPerToken[`${subgraphchain}:${boost.underlying_address}`]) {
-        console.error(`${level}: Missing holder count for ${vault.id}'s BOOST with address ${subgraphchain}:${boost.boost_address}`)
+        console.error(
+          `${level}: Missing holder count in balance api for ${vault.chain}:${vault.id}'s BOOST with address ${subgraphchain}:${boost.boost_address}`,
+        )
         missingHolderCounts.push(vault)
-        dataFileContentPerChain[subgraphchain].old_boosts.push(boost.boost_address)
+        dataFileContentPerChain[subgraphchain].no_factory_boosts.push(boost.boost_address)
       }
     }
   }
 
-  // write data files
-  for (const chain of Object.keys(dataFileContentPerChain)) {
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // write data files with missing holder counts
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // for (const chain of Object.keys(dataFileContentPerChain)) {
+  //   const fs = require("fs")
+
+  //   // only if the chain has a config file
+  //   if (!fs.existsSync(`./config/${chain}.json`)) {
+  //     continue
+  //   }
+
+  //   const targetFile = `./data/${chain}_data.json`
+  //   const dataFileContent = dataFileContentPerChain[chain]
+  //   const existingDataFileContentIfAny = fs.existsSync(targetFile)
+  //     ? JSON.parse(fs.readFileSync(targetFile, "utf8"))
+  //     : { no_factory_vaults: [], no_factory_boosts: [] }
+
+  //   dataFileContent.no_factory_vaults = dataFileContent.no_factory_vaults.concat(existingDataFileContentIfAny.no_factory_vaults)
+  //   dataFileContent.no_factory_boosts = dataFileContent.no_factory_boosts.concat(existingDataFileContentIfAny.no_factory_boosts)
+  //   dataFileContent.no_factory_vaults = Array.from(new Set(dataFileContent.no_factory_vaults))
+  //   dataFileContent.no_factory_boosts = Array.from(new Set(dataFileContent.no_factory_boosts))
+
+  //   dataFileContent.no_factory_vaults.sort()
+  //   dataFileContent.no_factory_boosts.sort()
+
+  //   fs.writeFileSync(targetFile, JSON.stringify(dataFileContent, null, 2))
+  // }
+
+  // // display top 30 missing TVL to focus on the most important vaults
+  // missingHolderCounts.sort((a, b) => b.tvl - a.tvl)
+  // console.error(`\n\nMissing TVL for top 30 vaults:`)
+  // missingHolderCounts.slice(0, 100).forEach((v) => {
+  //   const level = v.eol ? "ERROR" : "WARN"
+  //   console.error(`${level}: Missing TVL for ${v.chain}:${v.id}:${v.vault_address}: ${v.tvl}`)
+  // })
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // check that the chain config contains all the factory addresses in the addressbook
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const uniqChains = Array.from(new Set(allConfigs.map((v) => v.chain)))
+  for (const chain of uniqChains) {
     const fs = require("fs")
 
     // only if the chain has a config file
@@ -313,30 +363,68 @@ async function main() {
       continue
     }
 
-    const targetFile = `./data/${chain}_data.json`
-    const dataFileContent = dataFileContentPerChain[chain]
-    const existingDataFileContentIfAny = fs.existsSync(targetFile)
-      ? JSON.parse(fs.readFileSync(targetFile, "utf8"))
-      : { old_vaults: [], old_boosts: [] }
+    const file = `./config/${chain}.json`
+    const config = JSON.parse(fs.readFileSync(file, "utf8"))
+    type BeefyConfig = AddressBookChain["platforms"]["beefyfinance"]
+    // @ts-ignore
+    const addressbookChainConfig: BeefyConfig = addressBook[chain as any].platforms.beefyfinance
 
-    dataFileContent.old_vaults = dataFileContent.old_vaults.concat(existingDataFileContentIfAny.old_vaults)
-    dataFileContent.old_boosts = dataFileContent.old_boosts.concat(existingDataFileContentIfAny.old_boosts)
-    dataFileContent.old_vaults = Array.from(new Set(dataFileContent.old_vaults))
-    dataFileContent.old_boosts = Array.from(new Set(dataFileContent.old_boosts))
+    // clm
+    if (
+      addressbookChainConfig.clmFactory?.toLowerCase() !== config.clmManagerFactoryAddress?.toLowerCase() &&
+      addressbookChainConfig.clmFactory?.toLowerCase() !== config.clmManagerFactoryAddress_2?.toLowerCase()
+    ) {
+      console.error(
+        `${chain}: clmFactory address mismatch in config: ${addressbookChainConfig.clmFactory} !== ${config.clmManagerFactoryAddress} or ${config.clmManagerFactoryAddress_2}`,
+      )
+    }
+    if (
+      addressbookChainConfig.clmStrategyFactory?.toLowerCase() !== config.clmStrategyFactoryAddress?.toLowerCase() &&
+      addressbookChainConfig.clmStrategyFactory?.toLowerCase() !== config.clmStrategyFactoryAddress_2?.toLowerCase()
+    ) {
+      console.error(
+        `${chain}: clmStrategyFactory address mismatch in config: ${addressbookChainConfig.clmStrategyFactory} !== ${config.clmStrategyFactoryAddress} or ${config.clmStrategyFactoryAddress_2}`,
+      )
+    }
+    if (
+      addressbookChainConfig.clmRewardPoolFactory?.toLowerCase() !== config.rewardPoolFactoryAddress?.toLowerCase() &&
+      addressbookChainConfig.clmRewardPoolFactory?.toLowerCase() !== config.rewardPoolFactoryAddress_2?.toLowerCase()
+    ) {
+      console.error(
+        `${chain}: clmRewardPoolFactory address mismatch in config: ${addressbookChainConfig.clmRewardPoolFactory} !== ${config.rewardPoolFactoryAddress} or ${config.rewardPoolFactoryAddress_2}`,
+      )
+    }
 
-    dataFileContent.old_vaults.sort()
-    dataFileContent.old_boosts.sort()
-
-    fs.writeFileSync(targetFile, JSON.stringify(dataFileContent, null, 2))
+    // beefy classic
+    if (
+      addressbookChainConfig.vaultFactory?.toLowerCase() !== config.beefyClassicVaultFactoryAddress?.toLowerCase() &&
+      addressbookChainConfig.vaultFactory?.toLowerCase() !== config.beefyClassicVaultFactoryAddress_2?.toLowerCase()
+    ) {
+      console.error(
+        `${chain}: vaultFactory address mismatch in config: ${addressbookChainConfig.vaultFactory} !== ${config.beefyClassicVaultFactoryAddress} or ${config.beefyClassicVaultFactoryAddress_2}`,
+      )
+    }
   }
 
-  // display top 30 missing TVL to focus on the most important vaults
-  missingHolderCounts.sort((a, b) => b.tvl - a.tvl)
-  console.error(`\n\nMissing TVL for top 30 vaults:`)
-  missingHolderCounts.slice(0, 100).forEach((v) => {
-    const level = v.eol ? "ERROR" : "WARN"
-    console.error(`${level}: Missing TVL for ${v.chain}:${v.id}:${v.vault_address}: ${v.tvl}`)
-  })
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // check that reward pools are never considered as boosts in data files
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  for (const chain of uniqChains) {
+    const fs = require("fs")
+    if (!fs.existsSync(`./data/${chain}_data.json`)) {
+      continue
+    }
+    const data = JSON.parse(fs.readFileSync(`./data/${chain}_data.json`, "utf8"))
+
+    for (const potentially_a_misclassified_boost_address of data.no_factory_boosts) {
+      const rewardPool = clmRewardPoolData.find(
+        (r) => r.earnContractAddress.toLowerCase() === potentially_a_misclassified_boost_address.toLowerCase(),
+      )
+      if (rewardPool) {
+        console.error(`${chain}:${potentially_a_misclassified_boost_address} is a reward pool but is considered as a boost in data file`)
+      }
+    }
+  }
 }
 
 main()

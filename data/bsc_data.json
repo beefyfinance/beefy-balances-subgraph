@@ -1,5 +1,5 @@
 {
-  "old_vaults": [
+  "no_factory_vaults": [
     "0x00aec34489a7ade91a0507b6b9dbb0a50938b7c0",
     "0x00ecbb8f9853dbc621b39ab205a148a26eac3b11",
     "0x00f204f524a433f45a6278c2c0e10f5292b3c5b9",
@@ -742,7 +742,7 @@
     "0xff494b7cb341311f86da21a49c5ff176637aa85e",
     "0xff750ee63f1e428de1d6c8d9d92676b5fc8376a8"
   ],
-  "old_boosts": [
+  "no_factory_boosts": [
     "0x04756126f044634c9a0f0e985e60c88a51acc206",
     "0x3bc5ac0dfdc871b365d159f728dd1b9a0b5481e8",
     "0xc3c7d422809852031b44ab29eec9f1eff2a58756"

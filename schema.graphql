@@ -15,6 +15,9 @@ type Token @entity(immutable: true) {
 
   "Holder list of the token"
   balances: [TokenBalance!]! @derivedFrom(field: "token")
+
+  "Token statistics"
+  statistics: [TokenStatistic!]! @derivedFrom(field: "token")
 }
 
 """
@@ -66,4 +69,18 @@ type TokenBalance @entity {
   account: Account!
   "The amount of the token this account holds"
   amount: BigInt!
+}
+
+"""
+A debug entity to track how we discover contracts and avoid double counting
+"""
+type Contract @entity {
+  "The contract address"
+  id: Bytes!
+
+  "True if the contract was discovered via a factory"
+  factory: Boolean!
+
+  "True if the contract was enforced by a config file"
+  config: Boolean!
 }

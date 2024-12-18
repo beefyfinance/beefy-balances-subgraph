@@ -8,6 +8,13 @@
   "beefyClassicVaultFactoryAddress": "0xBC4a342B0c057501E081484A2d24e576E854F823",
   "beefyClassicVaultFactoryStartBlock": 7558107,
 
+  "clmManagerFactoryAddress": "0xd1bAb603eee03fA99A378d90d5d83186fEB81aA9",
+  "clmManagerFactoryStartBlock": 15023980,
+  "clmStrategyFactoryAddress": "0x5E0d19ACe839b2257F1A10Ee1E8b25E6D8930244",
+  "clmStrategyFactoryStartBlock": 15024000,
+  "rewardPoolFactoryAddress": "0x99097E6C293982f0e05937fdfB45F69eF8914F0e",
+  "rewardPoolFactoryStartBlock": 15024000,
+
   "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
   "beefyContractDeployerStartBlock": 7587005,
 

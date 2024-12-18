@@ -5,6 +5,12 @@
   "burnAddress": "0x000000000000000000000000000000000000dead",
   "firstBlock": 10097386,
 
+  "clmManagerFactoryAddress": "0xAF393b8ded8b8C1bd0c8707f43E6972C9bF19EE5",
+  "clmManagerFactoryStartBlock": 50895319,
+  "clmStrategyFactoryAddress": "0xEB385232b72dAFe4Ad1906BC6C4968D064a30FC4",
+  "clmStrategyFactoryStartBlock": 50895349,
+  "rewardPoolFactoryAddress": "0xbE03cb9f257bBA76178965D9391cA283767FF7Fe",
+  "rewardPoolFactoryStartBlock": 50895324,
   "beefyClassicVaultFactoryAddress": "0xee78529E158E82AC54c89608A9664F5597050526",
   "beefyClassicVaultFactoryStartBlock": 23297126,
 

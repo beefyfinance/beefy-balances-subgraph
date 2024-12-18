@@ -927,6 +927,11 @@ blob-to-it@^1.0.1:
   dependencies:
     browser-readablestream-to-it "^1.0.3"
 
+blockchain-addressbook@^0.47.106:
+  version "0.47.106"
+  resolved "https://registry.yarnpkg.com/blockchain-addressbook/-/blockchain-addressbook-0.47.106.tgz#6deb2d7e7ae78a096e92c0121805289f3118f083"
+  integrity sha512-zOUBYl4G4yc552jeSDyg+Zl9AhYV5vk/W2TnmppL4OJ2dADRmhyw5EC/KFtjkvNkN+P7zXMkH2Wl836ePeCr5Q==
+
 bn.js@4.11.6:
   version "4.11.6"
   resolved "https://registry.npmjs.org/bn.js/-/bn.js-4.11.6.tgz"

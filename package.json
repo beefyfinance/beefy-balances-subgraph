@@ -27,6 +27,7 @@
     "@graphprotocol/graph-ts": "^0.34.0",
     "@types/lodash": "^4.17.7",
     "assemblyscript-prettier": "^3.0.1",
+    "blockchain-addressbook": "^0.47.106",
     "husky": ">=7",
     "lint-staged": ">=10",
     "lodash": "^4.17.21",

@@ -3,6 +3,7 @@ import { ProxyCreated as VaultOrStrategyCreated } from "../../../generated/Class
 import { ClassicVault as ClassicVaultContract } from "../../../generated/ClassicVaultFactory/ClassicVault"
 import { ClassicVault as ClassicVaultTemplate } from "../../../generated/templates"
 import { RANDOM } from "../../random"
+import { markContractDiscoveredFromFactory } from "../../common/entity/contract"
 
 export function handleClassicVaultOrStrategyCreated(event: VaultOrStrategyCreated): void {
   log.debug("Classic Vault or Strategy created: {}. Rng: {}", [event.params.proxy.toHexString(), RANDOM])
@@ -20,5 +21,6 @@ export function handleClassicVaultOrStrategyCreated(event: VaultOrStrategyCreate
     log.warning("Creating Classic Vault: {}", [address.toHexString()])
 
     ClassicVaultTemplate.create(address)
+    markContractDiscoveredFromFactory(address)
   }
 }
