@@ -67,8 +67,19 @@ type TokenBalance @entity {
   token: Token!
   "Account that holds the token"
   account: Account!
-  "The amount of the token this account holds"
+
+  """
+  Amount: the amount of the token this account holds.
+  This amount is what is available on chain.
+  @deprecated(reason: "use rawAmount instead")
+  """
   amount: BigInt!
+
+  """
+  Raw amount: does not account for ignored contracts which can be buggy.
+  Raw amount is what is available on chain.
+  """
+  rawAmount: BigInt!
 }
 
 """

@@ -14,23 +14,23 @@ export function handleProductTransfer(event: TransferEvent): void {
     return
   }
 
-  if (shouldIgnoreContract(event.params.from) || shouldIgnoreContract(event.params.to)) {
-    log.debug("Ignoring transfer from/to ignored contract: {}", [event.transaction.hash.toHexString()])
-    return
-  }
-
   const tokenAddress = event.address
   fetchAndSaveTokenData(tokenAddress)
-
   const statistic = getTokenStatistic(tokenAddress)
 
   if (event.params.from.notEqual(SHARE_TOKEN_MINT_ADDRESS) && event.params.from.notEqual(BURN_ADDRESS)) {
-    const balDiff = updateAccountBalance(tokenAddress, event.params.from, event.params.value.neg())
+    const holder = event.params.from
+    const rawAmountDiff = event.params.value.neg()
+    const amountDiff = shouldIgnoreContract(holder) ? ZERO_BI : event.params.value.neg()
+    const balDiff = updateAccountBalance(tokenAddress, holder, amountDiff, rawAmountDiff)
     statistic.holderCount = statistic.holderCount.plus(balDiff.holderCountChange())
   }
 
   if (event.params.to.notEqual(SHARE_TOKEN_MINT_ADDRESS) && event.params.to.notEqual(BURN_ADDRESS)) {
-    const balDiff = updateAccountBalance(tokenAddress, event.params.to, event.params.value)
+    const receiver = event.params.to
+    const rawAmountDiff = event.params.value
+    const amountDiff = shouldIgnoreContract(receiver) ? ZERO_BI : event.params.value
+    const balDiff = updateAccountBalance(tokenAddress, receiver, amountDiff, rawAmountDiff)
     statistic.holderCount = statistic.holderCount.plus(balDiff.holderCountChange())
   }
 
@@ -44,22 +44,30 @@ export function handleProductTransfer(event: TransferEvent): void {
   statistic.save()
 }
 
-function updateAccountBalance(tokenAddress: Bytes, accountAddress: Bytes, amountDiff: BigInt): BalanceDiff {
+function updateAccountBalance(tokenAddress: Bytes, accountAddress: Bytes, amountDiff: BigInt, rawAmountDiff: BigInt): BalanceDiff {
   const account = createAccount(accountAddress)
   const token = getToken(tokenAddress)
   const balance = getTokenBalance(token, account)
+
   const before = balance.amount
   const after = balance.amount.plus(amountDiff)
   balance.amount = after
+
+  const rawBefore = balance.rawAmount
+  const rawAfter = balance.rawAmount.plus(rawAmountDiff)
+  balance.rawAmount = rawAfter
+
   balance.save()
 
-  return new BalanceDiff(before, balance.amount)
+  return new BalanceDiff(before, after, rawBefore, rawAfter)
 }
 
 class BalanceDiff {
   constructor(
     public before: BigInt,
     public after: BigInt,
+    public rawBefore: BigInt,
+    public rawAfter: BigInt,
   ) {}
 
   public holderCountChange(): BigInt {

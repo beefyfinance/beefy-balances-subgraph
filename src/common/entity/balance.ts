@@ -9,6 +9,7 @@ export function getTokenBalance(token: Token, account: Account): TokenBalance {
     tokenBalance.account = account.id
     tokenBalance.token = token.id
     tokenBalance.amount = ZERO_BI
+    tokenBalance.rawAmount = ZERO_BI
   }
 
   return tokenBalance
