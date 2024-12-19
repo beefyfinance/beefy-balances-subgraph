@@ -1,4 +1,4 @@
-import { chain, groupBy } from "lodash"
+import { chain, groupBy, uniq } from "lodash"
 import { addressBook, Chain as AddressBookChain } from "blockchain-addressbook"
 
 type Hex = `0x${string}`
@@ -271,10 +271,31 @@ async function main() {
   const dataFileContentPerChain = {} as any
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // check for missing chains
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const missingChains: string[] = []
+  const allChains = uniq(allConfigs.map((v) => v.chain))
+  for (const chain of allChains) {
+    const fs = require("fs")
+
+    // only if the chain has a config file
+    if (!fs.existsSync(`./config/${chain}.json`)) {
+      missingChains.push(chain)
+    }
+  }
+  if (missingChains.length > 0) {
+    console.error(`Missing chains: ${missingChains.join(", ")}`)
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // check for missing holder counts
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const missingHolderCounts: BeefyVault[] = []
   for (const vault of allConfigs) {
+    if (missingChains.includes(vault.chain)) {
+      continue
+    }
+
     const subgraphchain = vault.chain === "one" ? "harmony" : vault.chain
     dataFileContentPerChain[subgraphchain] = dataFileContentPerChain[subgraphchain] || { no_factory_vaults: [], no_factory_boosts: [] }
 
@@ -315,9 +336,9 @@ async function main() {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // write data files with missing holder counts
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // // write data files with missing holder counts
+  // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // for (const chain of Object.keys(dataFileContentPerChain)) {
   //   const fs = require("fs")
 
@@ -343,13 +364,16 @@ async function main() {
   //   fs.writeFileSync(targetFile, JSON.stringify(dataFileContent, null, 2))
   // }
 
-  // // display top 30 missing TVL to focus on the most important vaults
-  // missingHolderCounts.sort((a, b) => b.tvl - a.tvl)
-  // console.error(`\n\nMissing TVL for top 30 vaults:`)
-  // missingHolderCounts.slice(0, 100).forEach((v) => {
-  //   const level = v.eol ? "ERROR" : "WARN"
-  //   console.error(`${level}: Missing TVL for ${v.chain}:${v.id}:${v.vault_address}: ${v.tvl}`)
-  // })
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // display top 30 missing TVL to focus on the most important vaults
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // display top 30 missing TVL to focus on the most important vaults
+  missingHolderCounts.sort((a, b) => b.tvl - a.tvl)
+  console.error(`\n\nMissing TVL for top 30 vaults:`)
+  missingHolderCounts.slice(0, 100).forEach((v) => {
+    const level = v.eol ? "ERROR" : "WARN"
+    console.error(`${level}: Missing TVL for ${v.chain}:${v.id}:${v.vault_address}: ${v.tvl}`)
+  })
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // check that the chain config contains all the factory addresses in the addressbook
