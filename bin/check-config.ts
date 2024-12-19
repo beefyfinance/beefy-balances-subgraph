@@ -489,14 +489,22 @@ async function main() {
 
     if (!result.ok) {
       console.error(`Failed to fetch data from subgraph: ${result.statusText}`)
+      console.error(await result.text())
       continue
     }
 
-    const resultData = (await result.json()) as {
-      data: {
-        duplicate_config: { id: string }[]
-        none_config: { id: string }[]
-      }
+    const resultData = (await result.json()) as
+      | {
+          data: {
+            duplicate_config: { id: string }[]
+            none_config: { id: string }[]
+          }
+        }
+      | { errors: { location: string[]; message: string }[] }
+
+    if ("errors" in resultData) {
+      console.error(`Failed to fetch data from subgraph: ${JSON.stringify(resultData.errors, null, 2)}`)
+      continue
     }
 
     for (const contract of resultData.data.duplicate_config) {
@@ -509,6 +517,65 @@ async function main() {
       if (allAddressesInDataConfig.includes(contract.id)) {
         console.error(`${chain}: Contract ${contract.id} is not discovered from factory`)
       }
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // check that no balance is below 0, if that's the case that's probably because "firstBlock" is not set correctly
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  for (const chain of uniqChains) {
+    const fs = require("fs")
+    if (!fs.existsSync(`./config/${chain}.json`)) {
+      continue
+    }
+
+    const gql = `{
+      tokens(where: {balances_: {amount_lt: 0}}) {
+        id
+      }
+    }`
+
+    // only use the next version of the subgraph
+    const subgraphUrl = `https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-${chain}/latest/gn`
+    const result = await fetch(subgraphUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: gql }),
+    })
+
+    if (!result.ok) {
+      console.error(`Failed to fetch data from subgraph: ${result.statusText}`)
+      console.error(await result.text())
+      continue
+    }
+
+    const resultData = (await result.json()) as
+      | {
+          data: {
+            tokens: {
+              id: string
+            }[]
+          }
+        }
+      | { errors: { location: string[]; message: string }[] }
+
+    if ("errors" in resultData) {
+      console.error(`Failed to fetch data from subgraph: ${JSON.stringify(resultData.errors, null, 2)}`)
+      continue
+    }
+
+    if (resultData.data.tokens.length > 0) {
+      const duneChain = chain === "bsc" ? "bnb" : chain === "avax" ? "avalanche_c" : chain
+      const duneQuery = `
+      SELECT to, min(block_number)
+      FROM ${duneChain}.transactions
+      WHERE ${resultData.data.tokens.map((t) => `to = ${t.id}`).join("\n OR ")}
+      group by to
+      order by min(block_number)
+      `
+      console.error(`${chain}: Found ${resultData.data.tokens.length} tokens with balances below 0, please fix firstBlock in config.
+        ${duneQuery}
+      `)
     }
   }
 }

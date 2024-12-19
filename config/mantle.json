@@ -3,7 +3,7 @@
   "indexerHintPrune": 3000000,
   "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
   "burnAddress": "0x000000000000000000000000000000000000dead",
-  "firstBlock": 48140585,
+  "firstBlock": 48135884,
 
   "clmManagerFactoryAddress": "0xfBf758dbe280bD988ba0E13713b40ff8cea8565E",
   "clmManagerFactoryStartBlock": 66470980,

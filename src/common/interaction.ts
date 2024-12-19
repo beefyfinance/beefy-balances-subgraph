@@ -9,27 +9,29 @@ import { ZERO_BI } from "./utils/decimal"
 import { fetchAndSaveTokenData } from "./utils/token"
 
 export function handleProductTransfer(event: TransferEvent): void {
-  if (event.params.value.equals(ZERO_BI)) {
+  const tokenAddress = event.address
+  const transferAmount = event.params.value
+  const sender = event.params.from
+  const receiver = event.params.to
+
+  if (transferAmount.equals(ZERO_BI)) {
     log.debug("Ignoring transfer with zero value: {}", [event.transaction.hash.toHexString()])
     return
   }
 
-  const tokenAddress = event.address
   fetchAndSaveTokenData(tokenAddress)
   const statistic = getTokenStatistic(tokenAddress)
 
-  if (event.params.from.notEqual(SHARE_TOKEN_MINT_ADDRESS) && event.params.from.notEqual(BURN_ADDRESS)) {
-    const holder = event.params.from
-    const rawAmountDiff = event.params.value.neg()
-    const amountDiff = shouldIgnoreContract(holder) ? ZERO_BI : event.params.value.neg()
-    const balDiff = updateAccountBalance(tokenAddress, holder, amountDiff, rawAmountDiff)
+  if (sender.notEqual(SHARE_TOKEN_MINT_ADDRESS) && sender.notEqual(BURN_ADDRESS)) {
+    const rawAmountDiff = transferAmount.neg()
+    const amountDiff = shouldIgnoreContract(sender) ? ZERO_BI : rawAmountDiff
+    const balDiff = updateAccountBalance(tokenAddress, sender, amountDiff, rawAmountDiff)
     statistic.holderCount = statistic.holderCount.plus(balDiff.holderCountChange())
   }
 
-  if (event.params.to.notEqual(SHARE_TOKEN_MINT_ADDRESS) && event.params.to.notEqual(BURN_ADDRESS)) {
-    const receiver = event.params.to
-    const rawAmountDiff = event.params.value
-    const amountDiff = shouldIgnoreContract(receiver) ? ZERO_BI : event.params.value
+  if (receiver.notEqual(SHARE_TOKEN_MINT_ADDRESS) && receiver.notEqual(BURN_ADDRESS)) {
+    const rawAmountDiff = transferAmount
+    const amountDiff = shouldIgnoreContract(receiver) ? ZERO_BI : rawAmountDiff
     const balDiff = updateAccountBalance(tokenAddress, receiver, amountDiff, rawAmountDiff)
     statistic.holderCount = statistic.holderCount.plus(balDiff.holderCountChange())
   }
