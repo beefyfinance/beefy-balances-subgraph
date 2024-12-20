@@ -1,0 +1,21 @@
+{
+  "network": "sonic",
+  "indexerHintPrune": 10800000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+  "firstBlock": 491446,
+
+  "clmManagerFactoryAddress": "0xD19ab62F83380908D65E344567378cF104cE46c2",
+  "clmManagerFactoryStartBlock": 491446,
+  "clmStrategyFactoryAddress": "0xC2cEE7cf27D2Eda09fEc1743f3953dA77Bf1DA61",
+  "clmStrategyFactoryStartBlock": 491464,
+  "rewardPoolFactoryAddress": "0x3C0b1765C379833b86A1704997019A7496Afdfae",
+  "rewardPoolFactoryStartBlock": 491452,
+  "beefyClassicVaultFactoryAddress": "0x8e0B63846ebEFf857EE35eF3BD3A2df9EF7D6456",
+  "beefyClassicVaultFactoryStartBlock": 490985,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 517707,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

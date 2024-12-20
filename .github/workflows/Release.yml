@@ -31,8 +31,9 @@ jobs:
             "optimism",
             "polygon",
             "rootstock",
-            "sei",
             "scroll",
+            "sei",
+            "sonic",
             "zksync",
           ]
         os: [ubuntu-latest]

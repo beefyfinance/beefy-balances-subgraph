@@ -28,6 +28,7 @@ This Subgraph sources events from the Beefy contracts in different networks.
 - [Rootstock](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-rootstock/latest/gn)
 - [Scroll](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-scroll/latest/gn)
 - [Sei](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-sei/latest/gn)
+- [Sonic](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-sonic/latest/gn)
 - [Zksync](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-zksync/latest/gn)
 
 # Contributing
@@ -64,18 +65,17 @@ yarn test:lint # run prettier linter
 
 1. Add the network configuration [config/<network>.json](config/).
    - `indexerHintPrune` is the number of blocks to keep for the indexer hint, aim for 2 months. Can be set to `"auto"` to prune as much as possible. Recommended for performance and cost. Or set to `"never"` to keep all updates history. ([Thegraph docs](https://thegraph.com/docs/en/cookbook/pruning/#how-to-prune-a-subgraph-with-indexerhints))
-2. Add dev RPCs in graph-node config [docker/graph-node/config.toml](docker/graph-node/config.toml).
-3. Add the chain in `.github/workflows/Release.yml` to configure deployments.
-4. Test the build
-   - Apply the configuration: `npm run prepare:<chain>`
-   - Build the application: `npm run build`
-   - Run Tests: `npm run test`
+2. Add the chain in `.github/workflows/Release.yml` to configure deployments.
+3. Test the build
+   - Apply the configuration: `yarn configure <chain>`
+   - Build the application: `yarn build`
+   - Run Tests: `yarn test`
    - Deploy the new chain in DEV: `./bin/deploy.sh <chain> <dev provider>`
    - Test the data in the dev provider subgraph explorer
-   - Manually deploy the new chain in PROD for the first version: `./bin/deploy.sh <chain> <dev provider>`
-5. Update the `Deployments` section subgraph URLs in this README
-6. Update the [Balances API](https://github.com/beefyfinance/beefy-balances-api)
-7. Standard formatting with `npm run format`
+   - Manually deploy the new chain in PROD for the first version: `./bin/release.sh <version> <chain> <dev provider>`
+4. Update the `Deployments` section subgraph URLs in this README
+5. Update the [Balances API](https://github.com/beefyfinance/beefy-balances-api)
+6. Standard formatting with `yarn run format`
 
 ### How to update the schema
 
