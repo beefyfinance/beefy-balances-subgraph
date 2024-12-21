@@ -530,7 +530,7 @@ async function main() {
     }
 
     const gql = `{
-      tokens(where: {balances_: {amount_lt: 0}}) {
+      tokens(where: {balances_: {rawAmount_lt: 0}}) {
         id
       }
     }`
@@ -544,7 +544,7 @@ async function main() {
     })
 
     if (!result.ok) {
-      console.error(`Failed to fetch data from subgraph: ${result.statusText}`)
+      console.error(`Failed to fetch data from subgraph ${chain}: ${result.statusText}`)
       console.error(await result.text())
       continue
     }
