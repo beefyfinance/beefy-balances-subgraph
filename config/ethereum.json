@@ -5,6 +5,8 @@
   "burnAddress": "0x000000000000000000000000000000000000dead",
   "firstBlock": 15894491,
 
+  "clmManagerFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "clmManagerFactoryStartBlock": 15891216,
   "rewardPoolFactoryAddress": "0xf8a577A29C85Bb379Ef9CEf2eAe5AB11c3965C1b",
   "rewardPoolFactoryStartBlock": 20773643,
   "beefyClassicVaultFactoryAddress": "0xC551dDCE8e5E657503Cd67A39713c06F2c0d2e97",
