@@ -10,11 +10,6 @@
     "test:unit": "echo 'No unit tests defined'",
     "test:lint": "prettier . --check",
     "test:config": "ts-node --project tsconfig.scripts.json ./bin/check-config.ts",
-    "infra:start": "docker compose up -d",
-    "infra:stop": "docker compose down",
-    "create-local": "graph create beefyfinance/local --node http://127.0.0.1:8020",
-    "deploy-local": "graph deploy beefyfinance/local --node http://127.0.0.1:8020 --ipfs http://localhost:5001",
-    "remove-local": "graph remove beefyfinance/local --node http://127.0.0.1:8020",
     "configure": "./bin/prepare.sh "
   },
   "main": "./bin/index.js",
@@ -40,5 +35,5 @@
   "lint-staged": {
     "*.--check": "prettier --write"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22"
 }

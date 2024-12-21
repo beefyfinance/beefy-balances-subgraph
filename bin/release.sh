@@ -71,7 +71,7 @@ if [ -z "$version" ]; then
     exit_help
 fi
 # allow only x.y.z and x.y.z-n versions
-if [[ ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+)?$ ]]; then
+if [[ ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9]+)?$ ]]; then
     echo "invalid version ""$version"""
     exit_help
 fi
