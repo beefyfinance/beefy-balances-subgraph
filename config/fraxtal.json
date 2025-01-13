@@ -5,10 +5,12 @@
   "burnAddress": "0x000000000000000000000000000000000000dead",
   "firstBlock": 2365710,
 
-  "beefyClassicVaultFactoryAddress": "0x91BB303E972995EbE5f593BCddBb6F5Ef49Dbcbd",
-  "beefyClassicVaultFactoryStartBlock": 2366784,
+  "clmManagerFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "clmManagerFactoryStartBlock": 12965189,
   "rewardPoolFactoryAddress": "0xf7f67234d4e33b199b6f9c932bda92244495aa41",
   "rewardPoolFactoryStartBlock": 12965189,
+  "beefyClassicVaultFactoryAddress": "0x91BB303E972995EbE5f593BCddBb6F5Ef49Dbcbd",
+  "beefyClassicVaultFactoryStartBlock": 2366784,
 
   "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
   "beefyContractDeployerStartBlock": 2365710,
