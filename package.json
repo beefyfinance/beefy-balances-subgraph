@@ -9,7 +9,7 @@
     "test": "yarn run --silent test:lint && yarn run --silent test:unit",
     "test:unit": "echo 'No unit tests defined'",
     "test:lint": "prettier . --check",
-    "test:config": "ts-node --project tsconfig.scripts.json ./bin/check-config.ts",
+    "test:config": "ts-node --project tsconfig.scripts.json ./bin/check-config.ts; yarn format",
     "update:addressbook": "ncu --upgrade blockchain-addressbook viem && yarn install",
     "configure": "./bin/prepare.sh "
   },

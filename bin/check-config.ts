@@ -339,30 +339,30 @@ async function main() {
   // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // // write data files with missing holder counts
   // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // for (const chain of Object.keys(dataFileContentPerChain)) {
-  //   const fs = require("fs")
+  for (const chain of Object.keys(dataFileContentPerChain)) {
+    const fs = require("fs")
 
-  //   // only if the chain has a config file
-  //   if (!fs.existsSync(`./config/${chain}.json`)) {
-  //     continue
-  //   }
+    // only if the chain has a config file
+    if (!fs.existsSync(`./config/${chain}.json`)) {
+      continue
+    }
 
-  //   const targetFile = `./data/${chain}_data.json`
-  //   const dataFileContent = dataFileContentPerChain[chain]
-  //   const existingDataFileContentIfAny = fs.existsSync(targetFile)
-  //     ? JSON.parse(fs.readFileSync(targetFile, "utf8"))
-  //     : { no_factory_vaults: [], no_factory_boosts: [] }
+    const targetFile = `./data/${chain}_data.json`
+    const dataFileContent = dataFileContentPerChain[chain]
+    const existingDataFileContentIfAny = fs.existsSync(targetFile)
+      ? JSON.parse(fs.readFileSync(targetFile, "utf8"))
+      : { no_factory_vaults: [], no_factory_boosts: [] }
 
-  //   dataFileContent.no_factory_vaults = dataFileContent.no_factory_vaults.concat(existingDataFileContentIfAny.no_factory_vaults)
-  //   dataFileContent.no_factory_boosts = dataFileContent.no_factory_boosts.concat(existingDataFileContentIfAny.no_factory_boosts)
-  //   dataFileContent.no_factory_vaults = Array.from(new Set(dataFileContent.no_factory_vaults))
-  //   dataFileContent.no_factory_boosts = Array.from(new Set(dataFileContent.no_factory_boosts))
+    dataFileContent.no_factory_vaults = dataFileContent.no_factory_vaults.concat(existingDataFileContentIfAny.no_factory_vaults)
+    dataFileContent.no_factory_boosts = dataFileContent.no_factory_boosts.concat(existingDataFileContentIfAny.no_factory_boosts)
+    dataFileContent.no_factory_vaults = Array.from(new Set(dataFileContent.no_factory_vaults))
+    dataFileContent.no_factory_boosts = Array.from(new Set(dataFileContent.no_factory_boosts))
 
-  //   dataFileContent.no_factory_vaults.sort()
-  //   dataFileContent.no_factory_boosts.sort()
+    dataFileContent.no_factory_vaults.sort()
+    dataFileContent.no_factory_boosts.sort()
 
-  //   fs.writeFileSync(targetFile, JSON.stringify(dataFileContent, null, 2))
-  // }
+    fs.writeFileSync(targetFile, JSON.stringify(dataFileContent, null, 2))
+  }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // display top 30 missing TVL to focus on the most important vaults
@@ -488,7 +488,7 @@ async function main() {
     })
 
     if (!result.ok) {
-      console.error(`Failed to fetch data from subgraph: ${result.statusText}`)
+      console.error(`Failed to fetch data from ${subgraphUrl} subgraph ${chain} (${result.statusText}): ${gql}`)
       console.error(await result.text())
       continue
     }
@@ -503,7 +503,8 @@ async function main() {
       | { errors: { location: string[]; message: string }[] }
 
     if ("errors" in resultData) {
-      console.error(`Failed to fetch data from subgraph: ${JSON.stringify(resultData.errors, null, 2)}`)
+      console.error(`Failed to fetch data from ${subgraphUrl} subgraph ${chain} (${result.statusText}): ${gql}`)
+      console.error(JSON.stringify(resultData.errors, null, 2))
       continue
     }
 
@@ -530,8 +531,12 @@ async function main() {
     }
 
     const gql = `{
-      tokens(where: {balances_: {rawAmount_lt: 0}}) {
-        id
+      tokenBalances(where: {rawAmount_lt: 0}, skip: 0, first: 1000) {
+        token {
+          id
+        }
+        amount
+        rawAmount
       }
     }`
 
@@ -544,7 +549,7 @@ async function main() {
     })
 
     if (!result.ok) {
-      console.error(`Failed to fetch data from subgraph ${chain}: ${result.statusText}`)
+      console.error(`Failed to fetch data from ${subgraphUrl} subgraph ${chain} (${result.statusText}): ${gql}`)
       console.error(await result.text())
       continue
     }
@@ -552,28 +557,35 @@ async function main() {
     const resultData = (await result.json()) as
       | {
           data: {
-            tokens: {
-              id: string
+            tokenBalances: {
+              token: {
+                id: string
+              }
+              amount: string
+              rawAmount: string
             }[]
           }
         }
       | { errors: { location: string[]; message: string }[] }
 
     if ("errors" in resultData) {
-      console.error(`Failed to fetch data from subgraph: ${JSON.stringify(resultData.errors, null, 2)}`)
+      console.error(`Failed to fetch data from ${subgraphUrl} subgraph ${chain} (${result.statusText}): ${gql}`)
+      console.error(JSON.stringify(resultData.errors, null, 2))
       continue
     }
 
-    if (resultData.data.tokens.length > 0) {
+    if (resultData.data.tokenBalances.length > 0) {
       const duneChain = chain === "bsc" ? "bnb" : chain === "avax" ? "avalanche_c" : chain
       const duneQuery = `
       SELECT to, min(block_number)
       FROM ${duneChain}.transactions
-      WHERE ${resultData.data.tokens.map((t) => `to = ${t.id}`).join("\n OR ")}
+      WHERE ${uniq(resultData.data.tokenBalances.map((t) => t.token.id))
+        .map((t) => `to = ${t}`)
+        .join("\n OR ")}
       group by to
       order by min(block_number)
       `
-      console.error(`${chain}: Found ${resultData.data.tokens.length} tokens with balances below 0, please fix firstBlock in config.
+      console.error(`${chain}: Found ${resultData.data.tokenBalances.length} token balances with balances below 0, please fix firstBlock in config.
         ${duneQuery}
       `)
     }
