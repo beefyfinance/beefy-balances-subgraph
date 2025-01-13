@@ -10,6 +10,7 @@
     "test:unit": "echo 'No unit tests defined'",
     "test:lint": "prettier . --check",
     "test:config": "ts-node --project tsconfig.scripts.json ./bin/check-config.ts",
+    "update:addressbook": "ncu --upgrade blockchain-addressbook viem && yarn install",
     "configure": "./bin/prepare.sh "
   },
   "main": "./bin/index.js",
@@ -22,12 +23,13 @@
     "@graphprotocol/graph-ts": "^0.34.0",
     "@types/lodash": "^4.17.7",
     "assemblyscript-prettier": "^3.0.1",
-    "blockchain-addressbook": "^0.47.106",
+    "blockchain-addressbook": "^0.47.117",
     "husky": ">=7",
     "lint-staged": ">=10",
     "lodash": "^4.17.21",
     "matchstick-as": "^0.6.0",
     "mustache": "^4.2.0",
+    "npm-check-updates": "^17.1.13",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3"
   },
