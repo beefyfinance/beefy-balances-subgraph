@@ -1,0 +1,21 @@
+{
+  "network": "berachain-mainnet",
+  "indexerHintPrune": 3000000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0x70127945067E4224d7B6ABfDc6f57e3ea45d5CA4",
+  "clmManagerFactoryStartBlock": 794081,
+  "clmStrategyFactoryAddress": "0x7cac900B2f504047b40F5554F633248f78bD960A",
+  "clmStrategyFactoryStartBlock": 794099,
+  "rewardPoolFactoryAddress": "0x542Bf9f89c3Ba0edb7aE5EB4Cf582d349fCdC608",
+  "rewardPoolFactoryStartBlock": 794087,
+  "beefyClassicVaultFactoryAddress": "0x9818dF1Bdce8D0E79B982e2C3a93ac821b3c17e0",
+  "beefyClassicVaultFactoryStartBlock": 792380,
+  "beefyClassicStrategyFactoryAddress": "0x8e0B63846ebEFf857EE35eF3BD3A2df9EF7D6456",
+  "beefyClassicStrategyFactoryStartBlock": 792341,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 797896,
+  "vaultInitializedEvent": "Initialized(uint8)"
+}
