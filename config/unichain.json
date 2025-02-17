@@ -1,0 +1,23 @@
+{
+  "network": "unichain",
+  "indexerHintPrune": 3000000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0x4a902F6596cCf51c6c1FF5Cc055f69Aa1DD06277",
+  "clmManagerFactoryStartBlock": 9043276,
+  "clmStrategyFactoryAddress": "0x0B411a65044fcCA28f2cf0832d319c82A39c54bB",
+  "clmStrategyFactoryStartBlock": 9043300,
+  "rewardPoolFactoryAddress": "0x8C8F9B7Fb2a668C866a1c529529f7FB598375252",
+  "rewardPoolFactoryStartBlock": 9043285,
+  "beefyClassicVaultFactoryAddress": "0xc0382dbbc2a46F31AA39791Fd0864991962B191c",
+  "beefyClassicVaultFactoryStartBlock": 9042349,
+  "beefyClassicStrategyFactoryAddress": "0xC2F5bD6e9fef7368F59121552cA9CC60FF4a127A",
+  "beefyClassicStrategyFactoryStartBlock": 9047298,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 9042349,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 9047298,
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

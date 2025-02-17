@@ -16,6 +16,7 @@ jobs:
             "avax",
             "arbitrum",
             "base",
+            "berachain",
             "bsc",
             "ethereum",
             "fantom",
@@ -34,6 +35,7 @@ jobs:
             "scroll",
             "sei",
             "sonic",
+            "unichain",
             "zksync",
           ]
         os: [ubuntu-latest]

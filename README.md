@@ -10,6 +10,7 @@ This Subgraph sources events from the Beefy contracts in different networks.
 
 - [Avalanche](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-avax/latest/gn)
 - [Arbitrum](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-arbitrum/latest/gn)
+- [Berachain](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-berachain/latest/gn)
 - [Base](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-base/latest/gn)
 - [Bsc](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-bsc/latest/gn)
 - [Ethereum](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-ethereum/latest/gn)
@@ -29,6 +30,7 @@ This Subgraph sources events from the Beefy contracts in different networks.
 - [Scroll](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-scroll/latest/gn)
 - [Sei](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-sei/latest/gn)
 - [Sonic](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-sonic/latest/gn)
+- [Unichain](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-unichain/latest/gn)
 - [Zksync](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-zksync/latest/gn)
 
 # Contributing
@@ -65,17 +67,12 @@ yarn test:lint # run prettier linter
 
 1. Add the network configuration [config/<network>.json](config/).
    - `indexerHintPrune` is the number of blocks to keep for the indexer hint, aim for 2 months. Can be set to `"auto"` to prune as much as possible. Recommended for performance and cost. Or set to `"never"` to keep all updates history. ([Thegraph docs](https://thegraph.com/docs/en/cookbook/pruning/#how-to-prune-a-subgraph-with-indexerhints))
-2. Add the chain in `.github/workflows/Release.yml` to configure deployments.
-3. Test the build
-   - Apply the configuration: `yarn configure <chain>`
-   - Build the application: `yarn build`
-   - Run Tests: `yarn test`
-   - Deploy the new chain in DEV: `./bin/deploy.sh <chain> <dev provider>`
-   - Test the data in the dev provider subgraph explorer
-   - Manually deploy the new chain in PROD for the first version: `./bin/release.sh <version> <chain> <dev provider>`
-4. Update the `Deployments` section subgraph URLs in this README
-5. Update the [Balances API](https://github.com/beefyfinance/beefy-balances-api)
-6. Standard formatting with `yarn run format`
+2. Add the data configuration [data/<network>.json](data/)
+3. Add the chain in `.github/workflows/Release.yml` to configure deployments.
+4. Add the endpoint link to the [README](README.md) in alphabetical order.
+5. Release the first version of the subgraph for the new network using the [./bin/release.sh](./bin/release.sh) script.
+   - Must be logged in to goldsky with the provided cli.
+   - Only used to deploy the first version, see below for updating a subgraph.
 
 ### How to update the schema
 
