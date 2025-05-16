@@ -1,0 +1,25 @@
+{
+  "network": "saga-evm",
+  "indexerHintPrune": 1000000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0xc26314091EB7a9c75E5536f7f54A8F63e829547D",
+  "clmManagerFactoryStartBlock": 2544914,
+  "clmStrategyFactoryAddress": "0x5dAEd8dEe03CF685D072414cBc82Bf3933D9ed7f",
+  "clmStrategyFactoryStartBlock": 2544919,
+  "rewardPoolFactoryAddress": "0xF08cc9422a43Be7c1d6663DF2890Cf7E36E79307",
+  "rewardPoolFactoryStartBlock": 2544916,
+  "beefyClassicVaultFactoryAddress": "0xD19ab62F83380908D65E344567378cF104cE46c2",
+  "beefyClassicVaultFactoryStartBlock": 2544719,
+  "beefyClassicStrategyFactoryAddress": "0x43d05dB4C288e11096eD1e3e3a749Ef209AF5b2F",
+  "beefyClassicStrategyFactoryStartBlock": 2545574,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 2545574,
+  "beefyClassicErc4626AdapterFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicErc4626AdapterFactoryStartBlock": 2545574,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 2547786,
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

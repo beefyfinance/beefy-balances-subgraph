@@ -27,6 +27,7 @@ This Subgraph sources events from the Beefy contracts in different networks.
 - [Optimism](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-optimism/latest/gn)
 - [Polygon](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-polygon/latest/gn)
 - [Rootstock](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-rootstock/latest/gn)
+- [Saga](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-saga/latest/gn)
 - [Scroll](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-scroll/latest/gn)
 - [Sei](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-sei/latest/gn)
 - [Sonic](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-sonic/latest/gn)
@@ -67,7 +68,7 @@ yarn test:lint # run prettier linter
 
 1. Add the network configuration [config/<network>.json](config/).
    - `indexerHintPrune` is the number of blocks to keep for the indexer hint, aim for 2 months. Can be set to `"auto"` to prune as much as possible. Recommended for performance and cost. Or set to `"never"` to keep all updates history. ([Thegraph docs](https://thegraph.com/docs/en/cookbook/pruning/#how-to-prune-a-subgraph-with-indexerhints))
-2. Add the data configuration [data/<network>.json](data/)
+2. Add the data configuration [data/<network>_data.json](data/)
 3. Add the chain in `.github/workflows/Release.yml` to configure deployments.
 4. Add the endpoint link to the [README](README.md) in alphabetical order.
 5. Release the first version of the subgraph for the new network using the [./bin/release.sh](./bin/release.sh) script.
