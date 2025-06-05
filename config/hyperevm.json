@@ -1,0 +1,25 @@
+{
+  "network": "hyperevm",
+  "indexerHintPrune": 7000000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+
+  "clmManagerFactoryAddress": "0x7cac900B2f504047b40F5554F633248f78bD960A",
+  "clmManagerFactoryStartBlock": 4894174,
+  "clmStrategyFactoryAddress": "0xE6e5732245b3e886DD8897a93D21D29bb652d683",
+  "clmStrategyFactoryStartBlock": 4894479,
+  "rewardPoolFactoryAddress": "0x2ec5d5e9aaf3c3f56eBeF2fC46A5af9e42810b41",
+  "rewardPoolFactoryStartBlock": 4894296,
+  "beefyClassicVaultFactoryAddress": "0xBC4a342B0c057501E081484A2d24e576E854F823",
+  "beefyClassicVaultFactoryStartBlock": 4883535,
+  "beefyClassicStrategyFactoryAddress": "0x7Cba02979594b0f535E0077E9748407a48641c89",
+  "beefyClassicStrategyFactoryStartBlock": 4897041,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 4897041,
+  "beefyClassicErc4626AdapterFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicErc4626AdapterFactoryStartBlock": 4897041,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 4991672,
+  "vaultInitializedEvent": "Initialized(uint8)"
+}

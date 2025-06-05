@@ -22,6 +22,7 @@ jobs:
             "fantom",
             "fraxtal",
             "gnosis",
+            "hyperevm",
             "linea",
             "lisk",
             "manta",

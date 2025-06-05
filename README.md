@@ -17,6 +17,7 @@ This Subgraph sources events from the Beefy contracts in different networks.
 - [Fantom](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-fantom/latest/gn)
 - [Fraxtal](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-fraxtal/latest/gn)
 - [Gnosis](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-gnosis/latest/gn)
+- [Hyperevm](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-hyperevm/latest/gn)
 - [Linea](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-linea/latest/gn)
 - [Lisk](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-lisk/latest/gn)
 - [Manta](https://api.goldsky.com/api/public/project_clu2walwem1qm01w40v3yhw1f/subgraphs/beefy-balances-manta/latest/gn)
