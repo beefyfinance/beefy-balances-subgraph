@@ -1,0 +1,27 @@
+{
+  "network": "plasma-mainnet",
+  "indexerHintPrune": 7889400,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+  "firstBlock": 1899550,
+
+  "clmManagerFactoryAddress": "0xaF0f1B33Ef5A61b88F84BA2Ed2388f2C69fEaB55",
+  "clmManagerFactoryStartBlock": 1904711,
+  "clmStrategyFactoryAddress": "0xE6e5732245b3e886DD8897a93D21D29bb652d683",
+  "clmStrategyFactoryStartBlock": 1904768,
+  "rewardPoolFactoryAddress": "0x0465375274301FFCDf3274e59544d535e03B3688",
+  "rewardPoolFactoryStartBlock": 1904741,
+  "beefyClassicVaultFactoryAddress": "0xBC4a342B0c057501E081484A2d24e576E854F823",
+  "beefyClassicVaultFactoryStartBlock": 1899550,
+  "beefyClassicStrategyFactoryAddress": "0xC2cEE7cf27D2Eda09fEc1743f3953dA77Bf1DA61",
+  "beefyClassicStrategyFactoryStartBlock": 1904099,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 1904099,
+  "beefyClassicErc4626AdapterFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicErc4626AdapterFactoryStartBlock": 1904099,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 2002509,
+
+  "vaultInitializedEvent": "Initialized(uint8)"
+}
