@@ -20,6 +20,5 @@
   "beefyClassicErc4626AdapterFactoryStartBlock": 2545574,
 
   "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
-  "beefyContractDeployerStartBlock": 2547786,
-  "vaultInitializedEvent": "Initialized(uint8)"
+  "beefyContractDeployerStartBlock": 2547786
 }

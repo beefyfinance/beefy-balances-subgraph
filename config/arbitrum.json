@@ -28,7 +28,5 @@
   "beefyClassicVaultFactoryAddress_2": "0x8396f3d25d07531a80770ce3dea025932c4953f7",
   "beefyClassicVaultFactoryStartBlock_2": 197959279,
   "beefyClassicBoostFactoryAddress_2": "0x2951c806a75b19954ce0bed477676a54f3c1c200",
-  "beefyClassicBoostFactoryStartBlock_2": 197959279,
-
-  "vaultInitializedEvent": "Initialized(uint8)"
+  "beefyClassicBoostFactoryStartBlock_2": 197959279
 }

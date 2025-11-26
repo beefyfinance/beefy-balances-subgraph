@@ -300,8 +300,10 @@ templates:
       entities: *classicEntities
       abis: *classicAbis
       eventHandlers:
-        - event: {{vaultInitializedEvent}}
-          handler: handleClassicVaultInitialized
+        - event: 'OwnershipTransferred(indexed address,indexed address)'
+          handler: handleClassicVaultInitializedWithOwnershipTransferred
+        - event: 'Initialized(uint8)'
+          handler: handleClassicVaultInitializedWithInitialized
   {{/beefyClassicVaultFactoryAddress}}
 
   {{#beefyContractDeployerAddress}}

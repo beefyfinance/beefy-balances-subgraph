@@ -16,6 +16,5 @@
   "beefyClassicStrategyFactoryStartBlock": 792341,
 
   "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
-  "beefyContractDeployerStartBlock": 797896,
-  "vaultInitializedEvent": "Initialized(uint8)"
+  "beefyContractDeployerStartBlock": 797896
 }
