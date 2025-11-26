@@ -24,14 +24,14 @@ export function handleProductTransfer(event: TransferEvent): void {
 
   if (sender.notEqual(SHARE_TOKEN_MINT_ADDRESS) && sender.notEqual(BURN_ADDRESS)) {
     const rawAmountDiff = transferAmount.neg()
-    const amountDiff = shouldIgnoreContract(sender) ? ZERO_BI : rawAmountDiff
+    const amountDiff = shouldIgnoreContract(receiver) ? ZERO_BI : rawAmountDiff
     const balDiff = updateAccountBalance(tokenAddress, sender, amountDiff, rawAmountDiff)
     statistic.holderCount = statistic.holderCount.plus(balDiff.holderCountChange())
   }
 
   if (receiver.notEqual(SHARE_TOKEN_MINT_ADDRESS) && receiver.notEqual(BURN_ADDRESS)) {
     const rawAmountDiff = transferAmount
-    const amountDiff = shouldIgnoreContract(receiver) ? ZERO_BI : rawAmountDiff
+    const amountDiff = shouldIgnoreContract(sender) ? ZERO_BI : rawAmountDiff
     const balDiff = updateAccountBalance(tokenAddress, receiver, amountDiff, rawAmountDiff)
     statistic.holderCount = statistic.holderCount.plus(balDiff.holderCountChange())
   }
