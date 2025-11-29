@@ -1,4 +1,12 @@
 {
   "no_factory_vaults": ["0x62e5b9934dcb87618cfc74b222305d16c997e8c1", "0xc55E93C62874D8100dBd2DfE307EDc1036ad5434"],
-  "no_factory_boosts": []
+  "no_factory_boosts": [
+    "0xff22e826825e59161560da5545883e0cb332fce7",
+    "0xf8982af4da5a85b7a82f0348f6bd6970dc363466",
+    "0xf6db810709a29bb4da2969613d25ee32573b0aca",
+    "0x31eac0c43f0564f17314738d0a2de067c05d385e",
+    "0xa91f38bb21c51131d2915f025dfbaaf74cb50385",
+    "0x819d32901df52ac4bd513cf28cbf0ef3d029a6ff",
+    "0x01e8881ed2fb41e0b3df29f382faf707a0b26969"
+  ]
 }

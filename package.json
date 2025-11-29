@@ -10,6 +10,7 @@
     "test:unit": "echo 'No unit tests defined'",
     "test:lint": "prettier . --check",
     "test:config": "ts-node --project tsconfig.scripts.json ./bin/check-config.ts; yarn format",
+    "test:missing-boosts": "ts-node --project tsconfig.scripts.json ./bin/find-missing-boosts.ts",
     "update:addressbook": "ncu --upgrade blockchain-addressbook viem && yarn install",
     "configure": "./bin/prepare.sh "
   },

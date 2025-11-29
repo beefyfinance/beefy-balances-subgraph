@@ -163,5 +163,12 @@
     "0xfe27d61f8386370d6cfa63ea06470ed55f6dbfe7",
     "0xfea7976733f47557860f4483f2147a3e99c76b58"
   ],
-  "no_factory_boosts": []
+  "no_factory_boosts": [
+    "0x2554216fd346abdbd59cc6f7e85a3fdaf15c1419",
+    "0x8b80c7eb70aade035a538c72b00ef114fd306c93",
+    "0x90e91caf13f6c06fd04031cf5f398f8b3bab794b",
+    "0xb27727ebee7cfa04caab68522e1a14c426bba768",
+    "0xc4c291b76f9ad94f0ce57e7a5e629d81a02bb1c9",
+    "0xe1bbde90eb564c5f26dfcdeb9918bda183bf4e2b"
+  ]
 }

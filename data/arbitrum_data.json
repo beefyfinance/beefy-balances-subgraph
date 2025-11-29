@@ -46,5 +46,9 @@
     "0xf785ef43a082c85abbe19ca888f91748aa604ac5",
     "0xfcdd5a02c611ba6fe2802f885281500ec95805d7"
   ],
-  "no_factory_boosts": ["0x13ad51ed4f1b7e9dc168d8a00cb3f4ddd85efa60"]
+  "no_factory_boosts": [
+    "0x81350d3b7eaca4d4afb66721a9b5bbe2a6301b35",
+    "0xcdd9438b1dbc510763b525e0dba2435d7e52cd82",
+    "0xfd30cead8e54568fe535747929775e95fdb6d3f7"
+  ]
 }
