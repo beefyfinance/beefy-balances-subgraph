@@ -15,6 +15,10 @@
   "beefyClassicVaultFactoryStartBlock": 37915944,
   "beefyClassicStrategyFactoryAddress": "0xE6e5732245b3e886DD8897a93D21D29bb652d683",
   "beefyClassicStrategyFactoryStartBlock": 37968262,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 37915944,
+  "beefyClassicErc4626AdapterFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicErc4626AdapterFactoryStartBlock": 37915944,
 
   "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
   "beefyContractDeployerStartBlock": 37969788
