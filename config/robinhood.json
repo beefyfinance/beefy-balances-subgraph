@@ -1,0 +1,25 @@
+{
+  "network": "robinhood-mainnet",
+  "indexerHintPrune": 51840000,
+  "shareTokenMintAddress": "0x0000000000000000000000000000000000000000",
+  "burnAddress": "0x000000000000000000000000000000000000dead",
+  "firstBlock": 3548752,
+
+  "clmManagerFactoryAddress": "0x7881036d5DE71CE2ed5f2916025460A2AcA69ac4",
+  "clmManagerFactoryStartBlock": 3687670,
+  "clmStrategyFactoryAddress": "0xD4E968d673bc2C4Ba5abcB773de6f07e65E94E44",
+  "clmStrategyFactoryStartBlock": 3687694,
+  "rewardPoolFactoryAddress": "0x45efE862a9c6Dba32221c040885b794A9589103F",
+  "rewardPoolFactoryStartBlock": 3687674,
+  "beefyClassicVaultFactoryAddress": "0x2f99004ed581bc0fe35749047cAc44F0ee410cdf",
+  "beefyClassicVaultFactoryStartBlock": 3548752,
+  "beefyClassicStrategyFactoryAddress": "0x0E141deee4CcDa44212C30FD9242CB977b5Dff0B",
+  "beefyClassicStrategyFactoryStartBlock": 3633846,
+  "beefyClassicBoostFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicBoostFactoryStartBlock": 3548752,
+  "beefyClassicErc4626AdapterFactoryAddress": "0x0000000000000000000000000000000000000000",
+  "beefyClassicErc4626AdapterFactoryStartBlock": 3548752,
+
+  "beefyContractDeployerAddress": "0xcc536552A6214d6667fBC3EC38965F7f556A6391",
+  "beefyContractDeployerStartBlock": 4499166
+}
